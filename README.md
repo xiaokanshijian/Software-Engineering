@@ -1,12 +1,17 @@
 ## 基本说明
 前端：myfrontend
+
 后端：mybackend
+
 编辑器：vscode
 ## 前端配置
 ### 安装node.js
 node版本：v16.13.1
+
 npm版本：8.1.2
+
 [官方下载地址](https://nodejs.org/en/blog/release/v16.13.1)
+
 [参考教程](http://t.csdnimg.cn/kGXTz)
 
 ### 安装依赖
@@ -35,9 +40,11 @@ pip install -r requirements.txt
 
 ### 配置django环境
 安装下图所示的django插件
+
 ![alt text](image.png)
 
 配置调试环境
+
 ![alt text](image-1.png)
 
 复制以下内容到launch.json
@@ -62,8 +69,11 @@ pip install -r requirements.txt
 
 ### 数据库配置
 先创建一个数据库，然后配置settings\.py
+
 ![alt text](image-2.png)
+
 要修改的字段
+
 - NAME：数据库名称
 - USER：用户名
 - PASSWORD：密码
@@ -96,16 +106,29 @@ python manage.py migrate
 
 ## 运行效果
 浏览器访问运行前端后终端显示的地址
+
 ![alt text](image-4.png)
+
 普通用户界面
+
 ![alt text](image-5.png)
+
 登录界面
+
 ![alt text](image-6.png)
+
 注册界面
+
 ![alt text](image-7.png)
+
 养殖户界面
+
 ![alt text](image-8.png)
+
 管理员登录界面
+
 ![alt text](image-10.png)
+
 管理员界面
+
 ![alt text](image-9.png)
