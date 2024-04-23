@@ -200,14 +200,16 @@
 						<div id="login-from">
 							<el-form ref="loginForm" status-icon :model="loginForm" :rules="rules">
 								<el-form-item label="Username" prop="username">
-									<el-input v-model="loginForm.username" autocomplete="off"></el-input>
+									<el-input v-model="loginForm.username" autocomplete="off" style="width: 250px;"></el-input>
 								</el-form-item>
 								<el-form-item label="Password" prop="password">
-									<el-input type="password" v-model="loginForm.password" autocomplete="off"></el-input>
+									<el-input type="password" v-model="loginForm.password" autocomplete="off" style="width: 250px;"></el-input>
 								</el-form-item>
 								<slide-verification @check-result="checkResult"></slide-verification>
 								<br />
-								<el-button class="inputbutton" @click.native.prevent="login('loginForm')">登录</el-button>
+								<div style="display: flex; justify-content: center;">
+									<el-button class="inputbutton" @click.native.prevent="login('loginForm')">登录</el-button>
+								</div>
 							</el-form>
 						</div>
 					</el-main>
@@ -302,30 +304,7 @@ export default {
 				//未通过验证
 				this.$message('请拖动滑块进行验证！');
 			}
-		},
-		// register() {
-		// 	// Perform registration logic here
-		// 	// Create a new user account with the provided credentials
-		// 	// You can use an API call or any other registration mechanism
-			
-		// 	// Example registration logic
-		// 	alert('Registration successful');
-		// 	// Redirect to the login page or perform any other action
-		// },
-		// switchToRegistration() {
-		// 	this.overlaylong = 'overlaylongleft';
-		// 	this.overlaytitle = 'overlaytitleright';
-		// 	setTimeout(() => {
-		// 		this.disfiex = 1;
-		// 	}, 200);
-		// },
-		// switchToLogin() {
-		// 	this.overlaylong = 'overlaylongright';
-		// 	this.overlaytitle = 'overlaytitleleft';
-		// 	setTimeout(() => {
-		// 		this.disfiex = 0;
-		// 	}, 200);
-		// }
+		}
 	}
 }
 </script>

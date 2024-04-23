@@ -121,6 +121,8 @@ python manage.py migrate
 
 ![alt text](image-7.png)
 
+![alt text](image-11.png)
+
 养殖户界面
 
 ![alt text](image-8.png)

@@ -181,46 +181,75 @@
 		line-height: 40px;
 		margin-top: 30px;
 	}
+	
+	.text-foot{
+		font-weight: 700;
+		margin-top: 20px;
+		display: flex;
+		justify-content: center;
+	}
 </style>
  
 <template>
     <div class="center">
 		<div class="logon">
-            <div class="overlaylongleft">
-				<div class="overlaylong-Signup">
-					<!-- <h2 class="overlaylongH2">Registered Account</h2>
-					<input type="text" placeholder="Username" v-model="registerForm.username">
-					<input type="password" placeholder="Password" v-model="registerForm.password">
-					<input type="password" placeholder="Confirm Password" v-model="registerForm.checkPassword">
-					<button class="inupbutton" @click="register">Sign up</button> -->
-                    <el-main>
-                        <div id="register-from">
-                            <el-form ref="registerForm" status-icon :model="registerForm" :rules="rules">
-                                <el-form-item label="Username" prop="username">
-                                    <el-input v-model="registerForm.username" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="Name" prop="name">
-                                    <el-input v-model="registerForm.name" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="Password" prop="password">
-                                    <el-input type="password" v-model="registerForm.password" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <el-form-item label="Confirm Your Passord" prop="checkpwd">
-                                    <el-input type="password" v-model="registerForm.checkpwd" autocomplete="off"></el-input>
-                                </el-form-item>
-                                <slide-verification @check-result="checkResult"></slide-verification>
-                                <br />
-                                <el-button @click.native.prevent="register('registerForm')">注册</el-button>
-                            </el-form>
-                        </div>
-                    </el-main>
+            <div :class="overlaylong">
+				<div class="overlaylong-Signin" v-if="disfiex == 0">
+					<el-main>
+						<div id="register-from">
+							<el-form ref="registerForm" status-icon :model="registerForm" :rules="rules">
+								<el-form-item label="Username" prop="username" style="margin-bottom: 5px;">
+									<el-input v-model="registerForm.username" autocomplete="off" style="width: 250px;"></el-input>
+								</el-form-item>
+								<el-form-item label="Name" prop="name" style="margin-bottom: 5px;">
+									<el-input v-model="registerForm.name" autocomplete="off" style="width: 250px;"></el-input>
+								</el-form-item>
+								<el-form-item label="Phone" prop="phone" style="margin-bottom: 5px;">
+									<el-input v-model="registerForm.phone" autocomplete="off" style="width: 250px;"></el-input>
+								</el-form-item>
+								<div class="text-foot">
+									已有账号？
+									<router-link to="/login" class="register-link">
+										登录
+									</router-link>
+								</div>
+							</el-form>
+						</div>
+					</el-main>
+				</div>
+				<div class="overlaylong-Signup" v-if="disfiex == 1">
+					<el-main>
+						<div id="register-from">
+							<el-form ref="registerForm" status-icon :model="registerForm" :rules="rules">
+								<el-form-item label="E-mail" prop="email" style="margin-bottom: 5px;">
+									<el-input v-model="registerForm.email" autocomplete="off" style="width: 250px;"></el-input>
+								</el-form-item>
+								<el-form-item label="Password" prop="password" style="margin-bottom: 5px;">
+									<el-input type="password" v-model="registerForm.password" autocomplete="off" style="width: 250px;"></el-input>
+								</el-form-item>
+								<el-form-item label="Confirm Your Passord" prop="checkpwd" style="margin-bottom: 5px;">
+									<el-input type="password" v-model="registerForm.checkpwd" autocomplete="off" style="width: 250px;"></el-input>
+								</el-form-item>
+								<slide-verification @check-result="checkResult"></slide-verification>
+								<br />
+								<div style="display: flex; justify-content: center;">
+									<el-button class="inputbutton" @click.native.prevent="register('registerForm')">注册</el-button>
+								</div>
+							</el-form>
+						</div>
+					</el-main>
 				</div>
 			</div>
-            <div class="overlaytitleright">
-				<div class="overlaytitle-Signup">
+            <div :class="overlaytitle">
+				<div class="overlaytitle-Signin" v-if="disfiex == 0">
 					<h2 class="overlaytitleH2">海洋牧场监测可视化系统</h2>
-					<p class="overlaytitleP">Have an account?</p>
-                    <router-link class="buttongohs" to="/login">Sign in</router-link>
+					<p class="overlaytitleP">Next step is to create an account</p>
+                    <div class="buttongohs" @click="NextStep">Next Step</div>
+				</div>
+				<div class="overlaytitle-Signin" v-if="disfiex == 1">
+					<h2 class="overlaytitleH2">海洋牧场监测可视化系统</h2>
+					<p class="overlaytitleP">The last step is to create an account</p>
+                    <div class="buttongohs" @click="LastStep">Last Step</div>
 				</div>
 			</div>
 		</div>
@@ -252,11 +281,16 @@ export default {
         };
         return {
             confirmSuccess: false,
+			overlaylong: 'overlaylong',
+			overlaytitle: 'overlaytitle',
+			disfiex: 0,
             registerForm: {
                 username: null,
                 password: null,
                 checkpwd: null,
                 name: null,
+				phone: null,
+				email: null
             },
             rules: {
                 username: [{
@@ -314,7 +348,29 @@ export default {
                         message: '长度在 2 到 8 个字符',
                         trigger: 'blur'
                     }
-                ]
+                ],
+				phone: [{
+						required: true,
+						message: 'Please enter your phone number',
+						trigger: 'blur'
+					},
+					{
+						pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,
+						message: '长度为11个字符',
+						trigger: ['blur', 'change']
+					}
+				],
+				email: [{
+						required: true,
+						message: 'Please enter your email',
+						trigger: 'blur'
+					},
+					{
+						type: 'email',
+						message: 'Please enter the correct email address',
+						trigger: 'blur'
+					}
+				]
             }
         }
     },
@@ -322,6 +378,20 @@ export default {
         SlideVerification
     },
     methods: {
+		NextStep() {
+				this.overlaylong = "overlaylongleft"
+				this.overlaytitle = "overlaytitleright"
+				setTimeout(() => {
+					this.disfiex = 1
+				}, 200)
+			},
+		LastStep() {
+			this.overlaylong = "overlaylongright"
+			this.overlaytitle = "overlaytitleleft"
+			setTimeout(() => {
+				this.disfiex = 0
+			}, 200)
+		},
         //获取滑块验证结果
         checkResult(message) {
             this.confirmSuccess = message
