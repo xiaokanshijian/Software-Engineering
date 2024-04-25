@@ -40,9 +40,6 @@ export default {
                         this.currentDateTime = this.getCurrentDateTime();
                 }, 1000);
                 let token = sessionStorage.getItem('Authorization');
-                if (!(token === null || token === '')) {
-                        this.isLogin = true;
-                }
         },
         computed: {
                 isLogin() {
@@ -63,9 +60,9 @@ export default {
                 routerChange(path) {
                         if (path === '/login') {
                                 // window.location.href = 'http://127.0.0.1:8000/xadmin';
-                                isLogin = false;
+                                this.$store.commit('setLogin', false);
                         } else {
-                        this.$router.push(path);
+                        this.activePath = path;
     }
                 }
         }

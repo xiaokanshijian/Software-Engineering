@@ -58,7 +58,7 @@ class RegisterViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         # 密码转成密文存储
         user.password = make_password(user.password)
         user.save()
-        fisherMan = FisherMan(user=user, name=request.data['name'])
+        fisherMan = FisherMan(user=user, name=request.data['name'], phone=request.data['phone'], email=request.data['email'])
         if fisherMan:
             fisherMan.save()
             return Response({'msg': '注册成功'}, status=status.HTTP_200_OK)
