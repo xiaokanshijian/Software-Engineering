@@ -29,6 +29,7 @@ npm run serve
 ## 后端配置
 ### 创建虚拟环境
 新建一个文件夹，把整个后端文件夹复制进去
+
 ![alt text](figures/image-16.png)
 
 在vscode中打开刚建的文件夹和终端，输入命令
@@ -37,9 +38,11 @@ python -m venv myenv
 ```
 
 创建完成后，重新启动终端，以激活虚拟环境
+
 ![alt text](figures/image-17.png)
 
 把仓库里的Lib文件夹复制到刚才新建的虚拟环境myenv目录下，替换原有的Lib
+
 ![alt text](figures/image-12.png)
 
 ### 配置django环境
@@ -83,6 +86,7 @@ python manage.py migrate
 
 ### 运行项目
 打开manage\.py，点击调试按钮
+
 ![alt text](figures/image-3.png)
 
 ![alt text](figures/image-13.png)
@@ -92,6 +96,7 @@ python manage.py migrate
 ![alt text](figures/image-18.png)
 
 后端运行成功效果如下，访问终端显示网址即可进入后端
+
 ![alt text](figures/image-15.png)
 
 ## 运行效果
