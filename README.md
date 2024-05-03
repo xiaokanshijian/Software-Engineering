@@ -28,49 +28,29 @@ npm run serve
 
 ## 后端配置
 ### 创建虚拟环境
-进入后端目录，在终端输入命令
+新建一个文件夹，把整个后端文件夹复制进去
+![alt text](figures/image-16.png)
+
+在vscode中打开刚建的文件夹和终端，输入命令
 ```
 python -m venv myenv
 ```
 
-安装项目依赖
-```
-pip install -r requirements.txt
-```
+创建完成后，重新启动终端，以激活虚拟环境
+![alt text](figures/image-17.png)
+
+把仓库里的Lib文件夹复制到刚才新建的虚拟环境myenv目录下，替换原有的Lib
+![alt text](figures/image-12.png)
 
 ### 配置django环境
 安装下图所示的django插件
 
-![alt text](image.png)
-
-配置调试环境
-
-![alt text](image-1.png)
-
-复制以下内容到launch.json
-```JSON
-{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Python 调试程序: Django",
-            "type": "debugpy",
-            "request": "launch",
-            "args": [
-                "runserver"
-            ],
-            "django": true,
-            "autoStartBrowser": false,
-            "program": "${workspaceFolder}\\mybackend\\manage.py"
-        }
-    ]
-}
-```
+![alt text](figures/image.png)
 
 ### 数据库配置
 先创建一个数据库，然后配置settings\.py
 
-![alt text](image-2.png)
+![alt text](figures/image-2.png)
 
 要修改的字段
 
@@ -102,35 +82,45 @@ python manage.py migrate
 ```
 
 ### 运行项目
-![alt text](image-3.png)
+打开manage\.py，点击调试按钮
+![alt text](figures/image-3.png)
+
+![alt text](figures/image-13.png)
+
+![alt text](figures/image-14.png)
+
+![alt text](figures/image-18.png)
+
+后端运行成功效果如下，访问终端显示网址即可进入后端
+![alt text](figures/image-15.png)
 
 ## 运行效果
 浏览器访问运行前端后终端显示的地址
 
-![alt text](image-4.png)
+![alt text](figures/image-4.png)
 
 普通用户界面
 
-![alt text](image-5.png)
+![alt text](figures/image-5.png)
 
 登录界面
 
-![alt text](image-6.png)
+![alt text](figures/image-6.png)
 
 注册界面
 
-![alt text](image-7.png)
+![alt text](figures/image-7.png)
 
-![alt text](image-11.png)
+![alt text](figures/image-11.png)
 
 养殖户界面
 
-![alt text](image-8.png)
+![alt text](figures/image-8.png)
 
 管理员登录界面
 
-![alt text](image-10.png)
+![alt text](figures/image-10.png)
 
 管理员界面
 
-![alt text](image-9.png)
+![alt text](figures/image-9.png)
