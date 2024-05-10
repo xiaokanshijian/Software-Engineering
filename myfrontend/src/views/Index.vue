@@ -43,7 +43,16 @@
                   <div class="title" style="margin-top: 5px">
                     设备状态
                   </div>
-                  <div ref="secondMain" style="width: 100%; height: 90px"></div>
+                  <div ref="secondMain" style="width: 70%; height: 100%">
+                    <template>
+                      <el-tabs v-model="activeName" @tab-click="handleClick" style="margin-left: 50px;">
+                        <el-tab-pane label="主控" name="first">主控</el-tab-pane>
+                        <el-tab-pane label="时间校准" name="second">时间校准</el-tab-pane>
+                        <el-tab-pane label="通道" name="third">通道</el-tab-pane>
+                        <el-tab-pane label="告警" name="fourth">告警</el-tab-pane>
+                      </el-tabs>
+                    </template>
+                  </div>
                 </dv-border-box-12>
 
 
@@ -58,14 +67,18 @@
                   <div class="title" style="margin-top: 5px">
                     水文气象
                   </div>
-                  <div ref="thirdMain" style="width: 100%; height: 90px"></div>
+                  <div ref="thirdMain" style="width: 100%; height: 100%"></div>
                 </dv-border-box-12>
 
                 <dv-border-box-12 style="height: 250px; width: 410px">
                   <div class="title" style="margin-top: 5px">
                     定位
                   </div>
-                  <div ref="fourthMain" style="width: 100%; height: 90px"></div>
+                  <div ref="fourthMain" style="width: 93%; height: 83%; margin-left: 15px">
+                    <template>
+                      <div id="map" style="width: 100%; height: 100%"></div>
+                    </template>
+                  </div>
                 </dv-border-box-12>
 
               </div>
@@ -77,14 +90,55 @@
                   <div class="title" style="margin-top: 5px">
                     监控视频
                   </div>
-                  <div id="fifthMain" style="width: 500px; height: 90px"></div>
+                  <div id="fifthMain" style="width: 63%; height: 90px">
+                    <template>
+                      <el-tabs v-model="activeName2" @tab-click="handleClick2" style="margin-left: 50px;">
+                        <el-tab-pane label="视频1" name="first">视频1</el-tab-pane>
+                        <el-tab-pane label="视频2" name="second">视频2</el-tab-pane>
+                        <el-tab-pane label="视频3" name="third">视频3</el-tab-pane>
+                        <el-tab-pane label="视频4" name="fourth">视频4</el-tab-pane>
+                      </el-tabs>
+                    </template>
+                  </div>
                 </dv-border-box-12>
 
                 <dv-border-box-12 style="height: 220px; width: 540px">
                   <div class="title" style="margin-top: 5px">
                     附加功能
                   </div>
-                  <div id="sixthMain" style="width: 100%; height: 90px"></div>
+                  <div id="sixthMain"
+                    style="display: grid; grid-template-columns: repeat(3, 1fr); width: 98%; height: 90%">
+                    <div class="rounded-box"
+                      style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;">
+                      摄像头
+                      <camera-icon style="margin-left: auto;" />
+                    </div>
+                    <div class="rounded-box"
+                      style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;">
+                      灯光
+                      <light-icon style="margin-left: auto;" />
+                    </div>
+                    <div class="rounded-box"
+                      style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;">
+                      清洁
+                      <brush-icon style="margin-left: auto;" />
+                    </div>
+                    <div class="rounded-box"
+                      style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;">
+                      回放
+                      <loop-icon style="margin-left: auto;" />
+                    </div>
+                    <div class="rounded-box"
+                      style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;">
+                      同时播放
+                      <split-screen-icon style="margin-left: auto;" />
+                    </div>
+                    <div class="rounded-box"
+                      style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;">
+                      云台摄像机
+                      <cloud-file-icon style="margin-left: auto;" />
+                    </div>
+                  </div>
                 </dv-border-box-12>
               </div>
             </div>
@@ -99,6 +153,12 @@
 <script>
 import $ from "jquery";
 import LeftTop from "@/components/LeftTop.vue";
+import CameraIcon from "@/components/CameraIcon.vue";
+import LightIcon from "@/components/LightIcon.vue";
+import BrushIcon from "@/components/BrushIcon.vue";
+import LoopIcon from "@/components/LoopIcon.vue";
+import SplitScreenIcon from "@/components/SplitScreenIcon.vue";
+import CloudFileIcon from "@/components/CloudFileIcon.vue";
 import { color } from "echarts";
 function formatter(number) {
   const numbers = number.toString().split("").reverse();
@@ -112,16 +172,25 @@ export default {
   name: "Index",
   data() {
     return {
-
+      activeName: "first",
+      activeName2: "first",
     };
+  },
+  mounted() {
+    // 百度地图API功能
+    var map = new BMap.Map("map");
+    var point = new BMap.Point(116.404, 39.915);
+    map.centerAndZoom(point, 15);
+    map.enableScrollWheelZoom(true);
+    // 设置地图类型为混合地图
+    map.setMapType(BMAP_HYBRID_MAP);
   },
   methods: {
     setBarData() {
       $(document).ready(() => {
         var chartDom = this.$refs.firstMain;
         var myChart = this.$echarts.init(chartDom);
-        var option;
-        option = {
+        var option = {
           tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -141,7 +210,7 @@ export default {
           },
           legend: {
             data: ['Evaporation', 'Precipitation', 'Temperature'],
-            textStyle:{
+            textStyle: {
               color: '#ffffff',
             }
           },
@@ -152,7 +221,7 @@ export default {
               axisPointer: {
                 type: 'shadow'
               },
-              show:false
+              show: false
             }
           ],
           yAxis: [
@@ -168,7 +237,7 @@ export default {
               axisLabel: {
                 formatter: '{value} ml',
                 color: '#ffffff',
-                fontSize:10
+                fontSize: 10
               }
             },
             {
@@ -183,7 +252,7 @@ export default {
               axisLabel: {
                 formatter: '{value} °C',
                 color: '#ffffff',
-                fontSize:10
+                fontSize: 10
               }
             }
           ],
@@ -229,19 +298,175 @@ export default {
         option && myChart.setOption(option);
       });
     },
+    setBarData2() {
+      $(document).ready(() => {
+        var chartDom = this.$refs.thirdMain;
+        var myChart = this.$echarts.init(chartDom);
+        var option = {
+          grid: {
+            top: "10%",
+            left: "22%",
+            right: "14%",
+            bottom: "10%"
+            // containLabel: true
+          },
+          // 不显示x轴的相关信息
+          xAxis: {
+            show: false
+          },
+          yAxis: [
+            {
+              type: "category",
+              inverse: true,
+              data: ["电池电压(V)", "盐度(%)", "溶解氧(mg/L)", "浊度(NTU)", "pH", "水温(°C)"],
+              // 不显示y轴的线
+              axisLine: {
+                show: false
+              },
+              // 不显示刻度
+              axisTick: {
+                show: false
+              },
+              // 把刻度标签里面的文字颜色设置为白色
+              axisLabel: {
+                color: "#fff",
+
+              }
+            },
+            {
+              data: [25.90, 34.16, 0.00, 2.05, 8.37, 15],
+              inverse: true,
+              // 不显示y轴的线
+              axisLine: {
+                show: false
+              },
+              // 不显示刻度
+              axisTick: {
+                show: false
+              },
+              // 把刻度标签里面的文字颜色设置为白色
+              axisLabel: {
+                color: function (value, index) {
+                  // params 传进来的是柱子对象
+                  // dataIndex 是当前柱子的索引号
+                  let myColor = ['#fbaf16', '#73b73e', '#ff0000', '#73b73e', '#73b73e', '#ffffff'];
+                  return myColor[index];
+                },
+              }
+            }
+          ],
+          series: [
+            {
+              name: "条",
+              type: "bar",
+              data: [25.90, 34.16, 0.00, 2.05, 8.37, 15],
+              yAxisIndex: 0,
+              // 修改第一组柱子的圆角
+              itemStyle: {
+                barBorderRadius: 20,
+                // 此时的color 可以修改柱子的颜色
+                color: '#00A86B'
+              },
+              // 柱子之间的距离
+              barCategoryGap: 50,
+              //柱子的宽度
+              barWidth: 10,
+              // 显示柱子内的文字
+              label: {
+                show: false,
+                position: "inside",
+                // {c} 会自动的解析为 数据  data里面的数据
+                formatter: "{c}%"
+              }
+            },
+            {
+              name: "框",
+              type: "bar",
+              barCategoryGap: 50,
+              barWidth: 15,
+              yAxisIndex: 1,
+              data: [37, 37, 37, 37, 37, 37],
+              itemStyle: {
+                color: "none", // 不要条的颜色
+                borderColor: "#00c1de",
+                borderWidth: 3,
+                barBorderRadius: 15
+              }
+            }
+          ]
+        };
+
+        option && myChart.setOption(option);
+      });
+    },
+    handleClick(tab, event) {
+      // console.log(tab, event);
+    },
+    handleClick2(tab, event) {
+      // console.log(tab, event);
+    },
   },
   async created() {
     $(document).ready(async () => {
       this.setBarData()
+      this.setBarData2()
     })
   },
   components: {
     LeftTop,
+    CameraIcon,
+    LightIcon,
+    BrushIcon,
+    LoopIcon,
+    SplitScreenIcon,
+    CloudFileIcon
   },
 };
 </script>
 
 <style lang="less" scoped>
+#sixthMain {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.rounded-box {
+  background-color: rgb(7, 76, 140);
+  /* 天蓝色背景 */
+  border-radius: 10px;
+  /* 圆角 */
+  color: white;
+  /* 白色文字 */
+  font-size: 15px;
+  /* 字体大小 */
+  font-weight: bold;
+  /* 字体加粗 */
+  padding: 20px;
+  /* 内边距 */
+  width: calc(63.33% - 5px);
+  /* 设置盒子的宽度，使得每行可以放置三个盒子 */
+  margin-bottom: 8px;
+  /* 添加底部边距，使得两行之间有空间 */
+  height: 35px;
+  margin-left: 12%;
+  margin-top: 8px;
+}
+
+::v-deep .el-tabs__item.is-active {
+  color: #4b83f2; //当前标签页颜色
+}
+
+::v-deep .el-tabs__item {
+  color: #bfc0c2; //标签页默认颜色
+  font-weight: bold;
+  font-size: 15px;
+}
+
+::v-deep .el-tabs__item:hover {
+  color: #bfc0c2; //鼠标悬停标签页变化的颜色
+}
+
 .loading {
   position: absolute;
   left: 50%;
