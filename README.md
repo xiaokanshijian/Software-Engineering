@@ -130,6 +130,10 @@ python manage.py migrate
 
 ![alt text](figures/image-19.png)
 
+智能中心
+
+![alt text](figures/image-21.png)
+
 管理员登录界面
 
 ![alt text](figures/image-10.png)
