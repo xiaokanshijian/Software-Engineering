@@ -118,9 +118,17 @@ python manage.py migrate
 
 ![alt text](figures/image-11.png)
 
-养殖户界面
+主要信息
 
 ![alt text](figures/image-8.png)
+
+水下系统
+
+![alt text](figures/image-20.png)
+
+数据中心
+
+![alt text](figures/image-19.png)
 
 管理员登录界面
 

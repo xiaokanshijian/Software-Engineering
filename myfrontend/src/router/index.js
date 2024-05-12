@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from '../views/Index.vue'
-import Pred from '../views/Pred.vue'
-import TableData from '../views/TableData.vue'
+import UnderWaterSystem from '../views/UnderWaterSystem.vue'
+import DataCenter from '../views/DataCenter.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import AI from '../views/AI.vue'
@@ -20,25 +20,19 @@ const routes = [{
     }
 }, 
 {
-    path: '/pred',
-    name: 'Pred',
-    component: Pred,
+    path: '/underWaterSystem',
+    name: 'UnderWaterSystem',
+    component: UnderWaterSystem,
     meta: { 
         name: "水下系统" ,
         showHeader: true,
         showBackground: true,
     }
 }, 
-// {
-//     path: '/history',
-//     name: 'history',
-//     component: History,
-//     meta: { name: "电网历史" }
-// }, 
 {
-    path: '/tableData',
-    name: 'TableData',
-    component: TableData,
+    path: '/dataCenter',
+    name: 'DataCenter',
+    component: DataCenter,
     meta: { 
         name: "数据中心" , 
         showHeader: true,
