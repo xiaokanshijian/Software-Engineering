@@ -5,56 +5,44 @@
         <div class="naca">
           <div class="index-header" style="margin-top: 5px">
             <div>
-              <dv-decoration-10
-                style="width: 450px; height: 1px; margin-bottom: 45px"
-              />
-              <dv-decoration-8
-                style="width: 180px; height: 50px"
-                :color="['#568aea', '#000000']"
-              />
-              <div
-                style="
+              <dv-decoration-10 style="width: 450px; height: 1px; margin-bottom: 45px" />
+              <dv-decoration-8 style="width: 180px; height: 50px" :color="['#568aea', '#000000']" />
+              <div style="
                   width: 150px;
                   color: #eeecec;
                   font-size: 18px;
                   padding: 0 15px;
                   font-weight: bold;
-                "
-              >
+                ">
                 水下系统
               </div>
-              <dv-decoration-8
-                :reverse="true"
-                style="width: 180px; height: 50px"
-                :color="['#568aea', '#000000']"
-              />
-              <dv-decoration-10
-                style="
+              <dv-decoration-8 :reverse="true" style="width: 180px; height: 50px" :color="['#568aea', '#000000']" />
+              <dv-decoration-10 style="
                   width: 450px;
                   height: 1px;
                   transform: rotateY(180deg);
                   margin-bottom: 45px;
-                "
-              />
+                " />
             </div>
-            <dv-decoration-5
-              style="width: 10%; height: 20px"
-              :color="['#568aea', '#000000']"
-            />
+            <dv-decoration-5 style="width: 10%; height: 20px" :color="['#568aea', '#000000']" />
           </div>
 
           <div class="index-content">
             <div class="left">
               <div class="left-1" style="">
                 <dv-border-box-11 style="height: 200px; width: 490px; color: white;">
-                  <div style="padding: 5px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                  <div
+                    style="padding: 5px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                     <div class="title" style="margin-top: 5px; ; color: white; text-align: center;"> <!-- 文本框标题居中 -->
                       鱼群数量
                     </div>
-                    <dv-decoration-7 style="width:400px;height: 60px; margin: 8px 0; font-size: 24px;">总数：{{ today }}</dv-decoration-7> <!-- 增大字体 -->
+                    <dv-decoration-7 style="width:400px;height: 60px; margin: 8px 0; font-size: 24px;">总数：{{ today
+                      }}</dv-decoration-7> <!-- 增大字体 -->
                     <div style="display: flex; justify-content: center;"> <!-- 第二、三个文本框并列排布 -->
-                      <dv-decoration-7 style="width: 200px; height: 50px; margin-right: 10px; font-size: 18px;">今日新增：{{ todayAdded }}</dv-decoration-7> <!-- 增大字体 -->
-                      <dv-decoration-7 style="width: 200px; height: 50px; font-size: 18px;">今日死亡：{{ todayDead }}</dv-decoration-7> <!-- 增大字体 -->
+                      <dv-decoration-7 style="width: 200px; height: 50px; margin-right: 10px; font-size: 18px;">今日新增：{{
+                        todayAdded }}</dv-decoration-7> <!-- 增大字体 -->
+                      <dv-decoration-7 style="width: 200px; height: 50px; font-size: 18px;">今日死亡：{{ todayDead
+                        }}</dv-decoration-7> <!-- 增大字体 -->
                     </div>
                   </div>
                 </dv-border-box-11>
@@ -63,109 +51,135 @@
                   <div class="title" style="margin-top: 5px;">
                     海洋牧场环境感知得分
                   </div>
+
+                  <template>
+                    <div class="block" style="display: flex; align-items: center;margin-left: 10px; width: 28%; height: 3%;">
+                      <el-date-picker v-model="date" type="date" placeholder="选择日期" size="small" :picker-options="pickerOptions">
+                      </el-date-picker>
+                    </div>
+                  </template>
+
                   <div style="width: 100%; height: 5%; color: white; text-align: right; color: white;">
-                    <div style="opacity: 0.4;">舒适: 维持良好状态</div>
-                    <div style="opacity: 0.4;">正常: 可能出现轻微变化或趋势</div>
-                    <div style="opacity: 0.4;">隐患: 环境存在明显变化或问题</div>
-                    <div style="opacity: 0.4;">危险: 出现严重问题或危机</div>
+                    <div style="opacity: 0.8; color: white;">舒适: 维持良好状态</div>
+                    <div style="opacity: 0.8; color: white;">正常: 可能出现轻微变化或趋势</div>
+                    <div style="opacity: 0.8; color: white;">隐患: 环境存在明显变化或问题</div>
+                    <div style="opacity: 0.8; color: white;">危险: 出现严重问题或危机</div>
                   </div>
-                  <div
-                    ref="environment_count1"
-                    style="width: 100%; height: 100%; color: white;"
-                  ></div>
+                  <div ref="environment_count1" style="width: 100%; height: 75%; color: white;"></div>
                 </dv-border-box-12>
 
-               <div>
+                <div>
 
 
-  <dv-border-box-12 style="height: 300px; width: 490px;">
-    <div class="title" style="margin-top: 5px">鱼群个体数量历史曲线</div>
-    <!-- <div ref="timeZhou" style="width: 100%; height: 300px"></div> -->
-    <div
-      ref="history"
-      style="width: 100%; height: 300px"
-    />
-  </dv-border-box-12>
+                  <dv-border-box-12 style="height: 300px; width: 490px;">
+                    <div class="title" style="margin-top: 5px">鱼群个体数量历史曲线</div>
+                    <!-- <div ref="timeZhou" style="width: 100%; height: 300px"></div> -->
+                    <div ref="history" style="width: 100%; height: 300px" />
+                  </dv-border-box-12>
 
-</div>
+                </div>
 
 
               </div>
             </div>
 
             <div class="cent">
-       
-<dv-border-box-12 style="height: 330px; width: 540px; display: flex; flex-direction: column; align-items: center;">
-  <div style="margin-top: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
-    <div class="title" style="margin-top: 5px; text-align: center;color: white;">数据统计</div>
-    <div style="text-align: center; display: flex; justify-content: space-between; align-items: center; width: 100%;">
-      <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-        <dv-decoration-7 style="width: 150px; height: 30px;color: white;">鱼种:{{ fishType }}</dv-decoration-7>
-        <dv-decoration-7 style="width: 150px; height: 30px;color: white;">鱼苗:{{ fry }}尾</dv-decoration-7>
-        <dv-decoration-7 style="width: 150px; height: 30px;color: white;">生长:{{ growth }}尾</dv-decoration-7>
-      </div>
-      <dv-decoration-9 style="width: 200px; height: 200px; color: #fff; font-weight: bold; font-size: 20px;">已保障养殖鱼尾数：<br>{{ statistic }}</dv-decoration-9>
-      <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
-        <dv-decoration-7 style="width: 150px; height: 30px;color: white;">镜头：{{ camera }}</dv-decoration-7>
-        <dv-decoration-7 style="width: 150px; height: 30px;color: white;">云台：{{ platform }}</dv-decoration-7>
-        <dv-decoration-7 style="width: 150px; height: 30px;color: white;">声纳：{{ sonar }}</dv-decoration-7>
-      </div>
-    </div>
-  </div>
-</dv-border-box-12>
+
+              <dv-border-box-12
+                style="height: 330px; width: 540px; display: flex; flex-direction: column; align-items: center;">
+                <div
+                  style="margin-top: 20px; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                  <div class="title" style="margin-top: 5px; text-align: center;color: white;">数据统计</div>
+                  <div
+                    style="text-align: center; display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+                      <dv-decoration-7 style="width: 150px; height: 30px;color: white;">鱼种:{{ total_species
+                        }}</dv-decoration-7>
+                      <dv-decoration-7 style="width: 150px; height: 30px;color: white;">鱼苗:{{ fry }}尾</dv-decoration-7>
+                      <dv-decoration-7 style="width: 150px; height: 30px;color: white;">生长:{{ growth
+                        }}尾</dv-decoration-7>
+                    </div>
+                    <dv-decoration-9
+                      style="width: 200px; height: 200px; color: #fff; font-weight: bold; font-size: 20px;">已保障养殖鱼尾数：<br>{{
+                        total_fish }}</dv-decoration-9>
+                    <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+                      <dv-decoration-7 style="width: 150px; height: 30px;color: white;">镜头：{{ camera
+                        }}</dv-decoration-7>
+                      <dv-decoration-7 style="width: 150px; height: 30px;color: white;">云台：{{ platform
+                        }}</dv-decoration-7>
+                      <dv-decoration-7 style="width: 150px; height: 30px;color: white;">声纳：{{ sonar }}</dv-decoration-7>
+                    </div>
+                  </div>
+                </div>
+              </dv-border-box-12>
 
 
 
-              <dv-border-box-12 style="height: 220px; width: 540px">
+              <dv-border-box-12 style="height: 250px; width: 540px">
                 <div class="title" style="margin-top: 5px">鱼群属性分布曲线</div>
-			  </dv-border-box-12> 
-             
+                <div ref="attrMain" style="width: 100%; height: 90%"></div>
+              </dv-border-box-12>
 
-			 </div>
+
+            </div>
 
 
 
             <div class="right">
               <div class="col-2" style="">
 
-<dv-border-box-11>
-  <div style="padding: 15px">
-    <div class="title" style="margin-top: 5px; color: white;"> <!-- 白色字体 -->
-      硬件信息
-    </div>
-    <div id="secondMain" style="width: 100%; height: auto; display: flex; justify-content: space-between;"> <!-- Added justify-content: space-between -->
-      <div style="width: 48%; display: flex; flex-direction: column;"> <!-- Adjusted width and added flex-direction -->
-        <dv-decoration-11 style="height:60px; color: white;">网箱信息</dv-decoration-11> <!-- Removed width -->
-        <div>
-          <dv-decoration-7 style="height:30px; color: white;">长度：{{ cageLength }}</dv-decoration-7> <!-- Removed width -->
-          <dv-decoration-7 style="height:30px; color: white;">宽度：{{ cageWidth }}</dv-decoration-7> <!-- Removed width -->
-          <dv-decoration-7 style="height:30px; color: white;">深度：{{ cageDepth }}</dv-decoration-7> <!-- Removed width -->
-          <dv-decoration-7 style="height:30px; color: white;">经度：{{ longitude }}</dv-decoration-7> <!-- Removed width -->
-          <dv-decoration-7 style="height:30px; color: white;">纬度：{{ latitude }}</dv-decoration-7> <!-- Removed width -->
-        </div>
-      </div>
-      <div style="width: 48%; display: flex; flex-direction: column;"> <!-- Adjusted width and added flex-direction -->
-        <dv-decoration-11 style="height:60px; color: white;">水底传感器</dv-decoration-11> <!-- Removed width -->
-        <div>
-          <dv-decoration-7 style="height:30px; color: white;">运行时间：{{ runtime }}</dv-decoration-7> <!-- Removed width -->
-          <dv-decoration-7 style="height:30px; color: white;">下次检修：{{ nextMaintenance }}</dv-decoration-7> <!-- Removed width -->
-          <dv-decoration-7 style="height:30px; color: white;">保修过期：{{ warrantyExpired }}</dv-decoration-7> <!-- Removed width -->
-        </div>
-      </div>
-    </div>
-  </div>
-</dv-border-box-11>
+                <dv-border-box-11>
+                  <div style="padding: 15px">
+                    <div class="title" style="margin-top: 5px; color: white;"> <!-- 白色字体 -->
+                      硬件信息
+                    </div>
+                    <div id="secondMain"
+                      style="width: 100%; height: auto; display: flex; justify-content: space-between;">
+                      <!-- Added justify-content: space-between -->
+                      <div style="width: 48%; display: flex; flex-direction: column;">
+                        <!-- Adjusted width and added flex-direction -->
+                        <dv-decoration-11 style="height:60px; color: white;">网箱信息</dv-decoration-11>
+                        <!-- Removed width -->
+                        <div>
+                          <dv-decoration-7 style="height:30px; color: white;">长度：{{ cageLength }}</dv-decoration-7>
+                          <!-- Removed width -->
+                          <dv-decoration-7 style="height:30px; color: white;">宽度：{{ cageWidth }}</dv-decoration-7>
+                          <!-- Removed width -->
+                          <dv-decoration-7 style="height:30px; color: white;">深度：{{ cageDepth }}</dv-decoration-7>
+                          <!-- Removed width -->
+                          <dv-decoration-7 style="height:30px; color: white;">经度：{{ longitude }}</dv-decoration-7>
+                          <!-- Removed width -->
+                          <dv-decoration-7 style="height:30px; color: white;">纬度：{{ latitude }}</dv-decoration-7>
+                          <!-- Removed width -->
+                        </div>
+                      </div>
+                      <div style="width: 48%; display: flex; flex-direction: column;">
+                        <!-- Adjusted width and added flex-direction -->
+                        <dv-decoration-11 style="height:60px; color: white;">水底传感器</dv-decoration-11>
+                        <!-- Removed width -->
+                        <div>
+                          <dv-decoration-7 style="height:30px; color: white;">运行时间：{{ runtime }}</dv-decoration-7>
+                          <!-- Removed width -->
+                          <dv-decoration-7 style="height:30px; color: white;">下次检修：{{ nextMaintenance
+                            }}</dv-decoration-7> <!-- Removed width -->
+                          <dv-decoration-7 style="height:30px; color: white;">保修过期：{{ warrantyExpired
+                            }}</dv-decoration-7> <!-- Removed width -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </dv-border-box-11>
 
-                
-                      <dv-border-box-12>
-                              <div style="padding: 5px">
-                              <div class="title" style="margin-top: 5px">
-                                  鱼群种类占比
-                                </div>
-                            <div ref="thirdMain" style="width: 100%; height: 150px"></div>
-                            </div>
-                            </dv-border-box-12>
-                
+
+                <dv-border-box-12>
+                  <div style="padding: 5px">
+                    <div class="title" style="margin-top: 5px">
+                      鱼群种类占比
+                    </div>
+                    <div ref="thirdMain" style="width: 100%; height: 150px"></div>
+                  </div>
+                </dv-border-box-12>
+
               </div>
             </div>
           </div>
@@ -178,6 +192,7 @@
 <script>
 import $ from "jquery";
 import LeftTop from "@/components/LeftTop.vue";
+import { color } from "echarts";
 function formatter(number) {
   const numbers = number.toString().split("").reverse();
   const segs = [];
@@ -190,17 +205,17 @@ export default {
   name: "Index",
   data() {
     return {
-	  today: 1038, // 今日数量
+      today: 1038, // 今日数量
       todayAdded: 20, // 今日新增
       todayDead: 5, // 今日死亡
 
-      statistic: 159485,
-	  fishType: 50,
-	  fry: 500,
-	  growth: 600,
-	  camera: 5,
-	  platform: 2,
-	  sonar: 1,
+      // statistic: 159485,
+      // fishType: 50,
+      fry: 0,
+      growth: 0,
+      camera: 5,
+      platform: 2,
+      sonar: 1,
 
       cageLength: '100m', // 网箱长度
       cageWidth: '50m', // 网箱宽度
@@ -210,21 +225,43 @@ export default {
       runtime: '24天13小时56分钟', // 运行时间
       nextMaintenance: '35天后', // 下次检修时间
       warrantyExpired: '2035年10月9日', // 保修过期时间
-      
 
+      species_count: [], // 鱼种数量
+      total_fish: 0, // 鱼总数
+      species: [], // 鱼种
+      total_species: 0, // 鱼种总数,
+      average_weight: [],
+      average_length: [],
+      average_width: [],
+      average_height: [],
+      pickerOptions: {
+        disabledDate(time) {
+          return !((time.getTime() >= new Date('2024-4-11') && time.getTime() <= new Date('2024-4-16'))
+          || (time.getTime() >= new Date('2024-5-11') && time.getTime() <= new Date('2024-5-15')));
+        },
+      },
+      date: new Date('2024-04-11'),
+      scores: {},
     }
   },
-
+  watch: {
+    date(newDate) {
+      this.environment_point();
+    },
+  },
 
   methods: {
 
     environment_point() {
       $(document).ready(() => {
-		var chartDom = this.$refs.environment_count1;
+        var chartDom = this.$refs.environment_count1;
         chartDom.style.width = '490px'; // 设置宽度
         chartDom.style.height = '200px'; // 设置高度
         var myChart = this.$echarts.init(chartDom);
         var option;
+        var selectedMonth = this.date.getMonth() + 1; // getMonth() 返回的月份从 0 开始
+        var selectedDate = this.date.getDate();
+        var score = this.scores[selectedMonth][selectedDate];
 
         option = {
           series: [
@@ -288,23 +325,27 @@ export default {
                   }
                   return "";
                 },
+                textStyle: {
+                  color: "white",
+                },
               },
               title: {
                 offsetCenter: [0, "-10%"],
                 fontSize: 20,
+                color: "white",
               },
               detail: {
                 fontSize: 30,
                 offsetCenter: [0, "-35%"],
                 valueAnimation: true,
                 formatter: function (value) {
-                  return Math.round(value * 100) + "";
+                  return Math.round(value) + "";
                 },
                 color: "inherit",
               },
               data: [
                 {
-                  value: 0.7,
+                  value: score,
                   name: "环境评估",
                 },
               ],
@@ -316,73 +357,147 @@ export default {
       });
     },
 
-history() {
-   var chartDom = this.$refs.history;
-   chartDom.style.width = '490px'; // 设置宽度
-   chartDom.style.height = '270px'; // 设置高度
-   var myChart = this.$echarts.init(chartDom);
-   var option;
+    history() {
+      var chartDom = this.$refs.history;
+      chartDom.style.width = '490px'; // 设置宽度
+      chartDom.style.height = '270px'; // 设置高度
+      var myChart = this.$echarts.init(chartDom);
+      var option;
 
-   let base = +new Date(2017, 9, 3);
-   let oneDay = 24 * 3600 * 1000;
-   let data = [[base, Math.random() * 300]];
-   let currentDate = new Date(); // 获取当前时间
-   for (let i = 1; i < 20000; i++) {
-      let now = new Date((base += oneDay));
-      if (now > currentDate) { // 如果超过当前时间则停止添加数据
-         break;
+      let base = +new Date(2017, 9, 3);
+      let oneDay = 24 * 3600 * 1000;
+      let data = [[base, Math.random() * 300]];
+      let currentDate = new Date(); // 获取当前时间
+      for (let i = 1; i < 20000; i++) {
+        let now = new Date((base += oneDay));
+        if (now > currentDate) { // 如果超过当前时间则停止添加数据
+          break;
+        }
+        data.push([+now, Math.round((Math.random() - 0.5) * 20 + data[i - 1][1])]);
       }
-      data.push([+now, Math.round((Math.random() - 0.5) * 20 + data[i - 1][1])]);
-   }
-   option = {
-      tooltip: {
-         trigger: 'axis',
-         position: function (pt) {
+      option = {
+        tooltip: {
+          trigger: 'axis',
+          position: function (pt) {
             return [pt[0], '10%'];
-         }
-      },
-      toolbox: {
-         feature: {
+          }
+        },
+        toolbox: {
+          feature: {
             dataZoom: {
-               yAxisIndex: 'none'
+              yAxisIndex: 'none'
             },
             restore: {},
             saveAsImage: {}
-         }
-      },
-      xAxis: {
-         type: 'time',
-         boundaryGap: false
-      },
-      yAxis: {
-         type: 'value',
-         boundaryGap: [0, '100%'],
-         min: 0  // 设置最小值为 0
-      },
-      dataZoom: [
-         {
+          }
+        },
+        xAxis: {
+          type: 'time',
+          boundaryGap: false
+        },
+        yAxis: {
+          type: 'value',
+          boundaryGap: [0, '100%'],
+          min: 0  // 设置最小值为 0
+        },
+        dataZoom: [
+          {
             type: 'inside',
             start: 0,
             end: 20
-         },
-         {
+          },
+          {
             start: 0,
             end: 20
-         }
-      ],
-      series: [
-         {
+          }
+        ],
+        series: [
+          {
             name: '鱼尾数',
             type: 'line',
             smooth: true,
             symbol: 'none',
             areaStyle: {},
             data: data
-         }
-      ]
-   };
-   option && myChart.setOption(option);
-},
+          }
+        ]
+      };
+      option && myChart.setOption(option);
+    },
+
+    setLineData() {
+      var chartDom = this.$refs.attrMain;
+      var myChart = this.$echarts.init(chartDom);
+      var option;
+      option = {
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          // data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine'],
+          textStyle: {
+            color: 'white'
+          }
+        },
+        grid: {
+          top: '10%',
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: this.species,
+          axisLabel: {
+            color: 'white'
+          }
+        },
+        yAxis: {
+          type: 'value',
+          axisLabel: {
+            color: 'white'
+          }
+        },
+        series: [
+          {
+            name: '重量(kg)',
+            type: 'line',
+            smooth: true,
+            stack: 'Total',
+            data: this.average_weight
+          },
+          {
+            name: '长度(cm)',
+            type: 'line',
+            smooth: true,
+            stack: 'Total',
+            data: this.average_length
+          },
+          {
+            name: '宽度(cm)',
+            type: 'line',
+            smooth: true,
+            stack: 'Total',
+            data: this.average_width
+          },
+          {
+            name: '高度(cm)',
+            type: 'line',
+            smooth: true,
+            stack: 'Total',
+            data: this.average_height
+          },
+        ]
+      };
+      option && myChart.setOption(option);
+    },
 
     setpieData() {
       $(document).ready(() => {
@@ -403,7 +518,10 @@ history() {
             orient: 'vertical',
             left: 'left',
             top: 'center',
-            data: ['大黄鱼', '鲈鱼', '石斑鱼', '鲷鱼', '军曹鱼']
+            // data: ['大黄鱼', '鲈鱼', '石斑鱼', '鲷鱼', '军曹鱼'],
+            textStyle: {
+              color: 'white'
+            }
           },
           series: [
             {
@@ -425,13 +543,7 @@ history() {
               labelLine: {
                 show: false
               },
-              data: [
-                { value: 19798, name: '大黄鱼' },
-                { value: 16658, name: '鲈鱼' },
-                { value: 15957, name: '石斑鱼' },
-                { value: 8837, name: '鲷鱼' },
-                { value: 38831, name: '军曹鱼' }
-              ]
+              data: this.species_count
             }
           ]
         };
@@ -441,10 +553,32 @@ history() {
     },
   },
   async created() {
+    const response = await axios.get(`myApp/underwaterSystem/`);
+    this.species_count = response.data.species_stats.species_count;
+    this.average_weight = response.data.species_stats.average_weight;
+    this.average_length = response.data.species_stats.average_length;
+    this.average_width = response.data.species_stats.average_width;
+    this.average_height = response.data.species_stats.average_height;
+    this.$set(this.scores, '4', response.data.scores.April);
+    this.$set(this.scores, '5', response.data.scores.May);
+    console.log(this.scores);
+    for (let i = 0; i < this.species_count.length; i++) {
+      if(this.species_count[i].name === 'Smelt'){
+        this.fry += this.species_count[i].value;
+      }else if(this.species_count[i].name === 'Roach' || this.species_count[i].name === 'Parkki'){
+        this.growth += this.species_count[i].value;
+      }
+      this.species[i] = this.species_count[i].name;
+      this.total_fish += this.species_count[i].value;
+    }
+    this.total_species = this.species_count.length;
+    // console.log(this.total_fish, this.total_species);
+    console.log(this.species);
     $(document).ready(async () => {
       this.environment_point();
-	  this.history();
-	  this.setpieData();
+      this.history();
+      this.setpieData();
+      this.setLineData();
     })
   },
   components: {

@@ -32,27 +32,36 @@
             <div class="left">
               <div class="col-1" style="">
 
-                <dv-border-box-12 style="height: 300px; width: 490px">
+                <dv-border-box-12 style="height: 350px; width: 490px">
                   <div class="title" style="margin-top: 5px">
                     历史记录
                   </div>
-                  <div ref="firstMain" style="width: 100%; height: 105%"></div>
+
+                  <template>
+                    <div class="block" style="display: flex; align-items: center; margin-left: 150px; width: 30%; color: #4b83f2;">
+                      <el-date-picker v-model="date" type="date" placeholder="选择日期" size="small" :picker-options="pickerOptions">
+                      </el-date-picker>
+                    </div>
+                  </template>
+
+                  <div ref="firstMain" style="width: 100%; height: 90%"></div>
                 </dv-border-box-12>
 
-                <dv-border-box-12 style="height: 250px; width: 490px">
+                <dv-border-box-12 style="height: 200px; width: 490px">
                   <div class="title" style="margin-top: 5px">
                     设备状态
                   </div>
-                  <div ref="secondMain" style="width: 70%; height: 100%">
-                    <template>
-                      <el-tabs v-model="activeName" @tab-click="handleClick" style="margin-left: 50px;">
-                        <el-tab-pane label="主控" name="first">主控</el-tab-pane>
-                        <el-tab-pane label="时间校准" name="second">时间校准</el-tab-pane>
-                        <el-tab-pane label="通道" name="third">通道</el-tab-pane>
-                        <el-tab-pane label="告警" name="fourth">告警</el-tab-pane>
-                      </el-tabs>
-                    </template>
-                  </div>
+                  <!-- <div ref="secondMain" style="width: 70%; height: 100%"> -->
+                  <template>
+                    <el-tabs v-model="activeName" @tab-click="handleClick"
+                      style="margin-left: 50px; margin-right: 50px;">
+                      <el-tab-pane label="主控" name="first">主控</el-tab-pane>
+                      <el-tab-pane label="时间校准" name="second">时间校准</el-tab-pane>
+                      <el-tab-pane label="通道" name="third">通道</el-tab-pane>
+                      <el-tab-pane label="告警" name="fourth">告警</el-tab-pane>
+                    </el-tabs>
+                  </template>
+                  <!-- </div> -->
                 </dv-border-box-12>
 
 
@@ -67,18 +76,39 @@
                   <div class="title" style="margin-top: 5px">
                     水文气象
                   </div>
-                  <div ref="thirdMain" style="width: 100%; height: 100%"></div>
+                  <template>
+                    <el-tabs v-model="activeName3" @tab-click="handleClick3"
+                      style="margin-left: 25px; margin-right: 15px;">
+                      <el-tab-pane label="Ⅰ类" name="first">
+                        <div ref="secondMain" style="width: 100%; height: 250px"></div>
+                      </el-tab-pane>
+                      <el-tab-pane label="Ⅱ类" name="second">
+                        <div ref="thirdMain" style="width: 380px; height: 250px"></div>
+                      </el-tab-pane>
+                      <el-tab-pane label="Ⅲ类" name="third">
+                        <div ref="fourthMain" style="width: 100%; height: 250px"></div>
+                      </el-tab-pane>
+                      <el-tab-pane label="Ⅳ类" name="fourth">
+                        <div ref="fifthMain" style="width: 100%; height: 250px"></div>
+                      </el-tab-pane>
+                      <el-tab-pane label="Ⅴ类" name="fith">
+                        <div ref="sixthMain" style="width: 100%; height: 250px"></div>
+                      </el-tab-pane>
+                    </el-tabs>
+                  </template>
+
+                  <!-- <div ref="thirdMain" style="width: 100%; height: 100%"></div> -->
                 </dv-border-box-12>
 
                 <dv-border-box-12 style="height: 250px; width: 410px">
                   <div class="title" style="margin-top: 5px">
                     定位
                   </div>
-                  <div ref="fourthMain" style="width: 93%; height: 83%; margin-left: 15px">
-                    <template>
-                      <div id="map" style="width: 100%; height: 100%"></div>
-                    </template>
-                  </div>
+                  <!-- <div ref="fourthMain" style="width: 93%; height: 83%; margin-left: 15px"> -->
+                  <template>
+                    <div id="map" style="width: 93%; height: 83%; margin-left: 15px"></div>
+                  </template>
+                  <!-- </div> -->
                 </dv-border-box-12>
 
               </div>
@@ -90,24 +120,25 @@
                   <div class="title" style="margin-top: 5px">
                     监控视频
                   </div>
-                  <div id="fifthMain" style="width: 63%; height: 90px">
-                    <template>
-                      <el-tabs v-model="activeName2" @tab-click="handleClick2" style="margin-left: 50px;">
-                        <el-tab-pane label="视频1" name="first">视频1</el-tab-pane>
-                        <el-tab-pane label="视频2" name="second">视频2</el-tab-pane>
-                        <el-tab-pane label="视频3" name="third">视频3</el-tab-pane>
-                        <el-tab-pane label="视频4" name="fourth">视频4</el-tab-pane>
-                      </el-tabs>
-                    </template>
-                  </div>
+
+                  <template>
+                    <!-- <div id="fifthMain" style="width: 85%; height: 150px"> -->
+                    <el-tabs v-model="activeName2" @tab-click="handleClick2"
+                      style="margin-left: 50px; margin-right: 50px;">
+                      <el-tab-pane v-for="(video, index) in videos" :label="video.label" :name="video.name"
+                        :key="index">
+                        <video :src="video.src" controls style="width: 95%; height: 90%"></video>
+                      </el-tab-pane>
+                    </el-tabs>
+                    <!-- </div> -->
+                  </template>
                 </dv-border-box-12>
 
                 <dv-border-box-12 style="height: 220px; width: 540px">
                   <div class="title" style="margin-top: 5px">
                     附加功能
                   </div>
-                  <div id="sixthMain"
-                    style="display: grid; grid-template-columns: repeat(3, 1fr); width: 98%; height: 90%">
+                  <div style="display: grid; grid-template-columns: repeat(3, 1fr); width: 98%; height: 90%">
                     <div class="rounded-box"
                       style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;">
                       摄像头
@@ -174,7 +205,38 @@ export default {
     return {
       activeName: "first",
       activeName2: "first",
+      activeName3: "first",
+      videos: [
+        { label: '视频1', name: 'first', src: '/videos/video1.mp4' },
+        { label: '视频2', name: 'second', src: '/videos/video2.mp4' },
+        { label: '视频3', name: 'third', src: '/videos/video3.mp4' },
+        { label: '视频4', name: 'fourth', src: '/videos/video4.mp4' },
+      ],
+      records: {},
+      temperature: {},
+      ph: {},
+      dissolved_oxygen: {},
+      conductivity: {},
+      turbidity: {},
+      permanganate_index: {},
+      ammonia_nitrogen: {},
+      total_nitrogen: {},
+      total_phosphorus: {},
+      pickerOptions: {
+        disabledDate(time) {
+          return !((time.getTime() >= new Date('2024-4-11') && time.getTime() <= new Date('2024-4-16'))
+          || (time.getTime() >= new Date('2024-5-11') && time.getTime() <= new Date('2024-5-15')));
+        },
+      },
+      date: new Date('2024-04-11'),
     };
+  },
+  watch: {
+    date(newDate) {
+      console.log(newDate); // 当 date 的值改变时，打印新的值
+      this.setBarData();
+      this.setBarData2();
+    },
   },
   mounted() {
     // 百度地图API功能
@@ -190,6 +252,8 @@ export default {
       $(document).ready(() => {
         var chartDom = this.$refs.firstMain;
         var myChart = this.$echarts.init(chartDom);
+        var selectedMonth = this.date.getMonth() + 1; // getMonth() 返回的月份从 0 开始
+        var selectedDate = this.date.getDate();
         var option = {
           tooltip: {
             trigger: 'axis',
@@ -202,14 +266,14 @@ export default {
           },
           toolbox: {
             feature: {
-              dataView: { show: false, readOnly: false },
-              magicType: { show: true, type: ['line', 'bar'] },
-              restore: { show: false },
+              dataView: { show: true, readOnly: false },
+              magicType: { show: false, type: ['line', 'bar'] },
+              restore: { show: true },
               saveAsImage: { show: false }
             }
           },
           legend: {
-            data: ['Evaporation', 'Precipitation', 'Temperature'],
+            // data: ['氨氮(mg/L)', '总磷(mg/L)', '总氮(mg/L)'],
             textStyle: {
               color: '#ffffff',
             }
@@ -217,40 +281,42 @@ export default {
           xAxis: [
             {
               type: 'category',
-              data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+              data: ['Ⅰ', 'Ⅱ', 'Ⅲ', 'Ⅳ', 'Ⅴ'],
+              axisLabel: {
+                color: '#ffffff',
+                fontSize: 10
+              },
               axisPointer: {
                 type: 'shadow'
               },
-              show: false
+              show: true
             }
           ],
           yAxis: [
             {
               type: 'value',
-              name: 'Precipitation',
+              name: '氨氮含量',
               nameTextStyle: {
                 color: '#ffffff',
               },
               min: 0,
-              max: 250,
-              interval: 50,
+              max: 0.5,
+              interval: 0.1,
               axisLabel: {
-                formatter: '{value} ml',
                 color: '#ffffff',
                 fontSize: 10
               }
             },
             {
               type: 'value',
-              name: 'Temperature',
+              name: '数量/浊度',
               nameTextStyle: {
                 color: '#ffffff'
               },
               min: 0,
-              max: 25,
-              interval: 5,
+              max: 100,
+              interval: 20,
               axisLabel: {
-                formatter: '{value} °C',
                 color: '#ffffff',
                 fontSize: 10
               }
@@ -258,39 +324,41 @@ export default {
           ],
           series: [
             {
-              name: 'Evaporation',
+              name: '记录数量',
               type: 'bar',
-              tooltip: {
-                valueFormatter: function (value) {
-                  return value + ' ml';
-                }
-              },
-              data: [
-                2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3
-              ]
+              yAxisIndex: 1,
+              data: this.records[selectedMonth][selectedDate],
             },
             {
-              name: 'Precipitation',
+              name: '浊度(NTU)',
               type: 'bar',
-              tooltip: {
-                valueFormatter: function (value) {
-                  return value + ' ml';
-                }
-              },
-              data: [
-                2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
-              ]
-            },
-            {
-              name: 'Temperature',
-              type: 'line',
               yAxisIndex: 1,
               tooltip: {
                 valueFormatter: function (value) {
-                  return value + ' °C';
+                  return value + 'NTU';
                 }
               },
-              data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+              data: this.turbidity[selectedMonth][selectedDate][0],
+            },
+            {
+              name: '氨氮(mg/L)',
+              type: 'line',
+              tooltip: {
+                valueFormatter: function (value) {
+                  return value + 'mg/L';
+                }
+              },
+              data: this.ammonia_nitrogen[selectedMonth][selectedDate][0],
+            },
+            {
+              name: '总氮(mg/L)',
+              type: 'line',
+              tooltip: {
+                valueFormatter: function (value) {
+                  return value + 'mg/L';
+                }
+              },
+              data: this.total_nitrogen[selectedMonth][selectedDate][0],
             }
           ]
         };
@@ -300,14 +368,49 @@ export default {
     },
     setBarData2() {
       $(document).ready(() => {
-        var chartDom = this.$refs.thirdMain;
+        // console.log(this.activeName3);
+        var unit = ['μS/cm', 'mg/L', 'mg/L', 'mg/L', '', '°C'];
+        var chartDom, realData, displayData;
+        var selectedMonth = this.date.getMonth() + 1; // getMonth() 返回的月份从 0 开始
+        var selectedDate = this.date.getDate();
+        if (this.activeName3 == 'first') {
+          chartDom = this.$refs.secondMain;
+          realData = [this.conductivity[selectedMonth][selectedDate][0][0], this.permanganate_index[selectedMonth][selectedDate][0][0], this.dissolved_oxygen[selectedMonth][selectedDate][0][0], this.total_nitrogen[selectedMonth][selectedDate][0][0], this.ph[selectedMonth][selectedDate][0][0], this.temperature[selectedMonth][selectedDate][0][0]];
+          displayData = [this.conductivity[selectedMonth][selectedDate][1][0], this.permanganate_index[selectedMonth][selectedDate][1][0], this.dissolved_oxygen[selectedMonth][selectedDate][1][0], this.total_nitrogen[selectedMonth][selectedDate][1][0], this.ph[selectedMonth][selectedDate][1][0], this.temperature[selectedMonth][selectedDate][1][0]];
+        } else if (this.activeName3 == 'second') {
+          realData = [this.conductivity[selectedMonth][selectedDate][0][1], this.permanganate_index[selectedMonth][selectedDate][0][1], this.dissolved_oxygen[selectedMonth][selectedDate][0][1], this.total_nitrogen[selectedMonth][selectedDate][0][1], this.ph[selectedMonth][selectedDate][0][1], this.temperature[selectedMonth][selectedDate][0][1]];
+          displayData = [this.conductivity[selectedMonth][selectedDate][1][1], this.permanganate_index[selectedMonth][selectedDate][1][1], this.dissolved_oxygen[selectedMonth][selectedDate][1][1], this.total_nitrogen[selectedMonth][selectedDate][1][1], this.ph[selectedMonth][selectedDate][1][1], this.temperature[selectedMonth][selectedDate][1][1]];
+          chartDom = this.$refs.thirdMain;
+        } else if (this.activeName3 == 'third') {
+          realData = [this.conductivity[selectedMonth][selectedDate][0][2], this.permanganate_index[selectedMonth][selectedDate][0][2], this.dissolved_oxygen[selectedMonth][selectedDate][0][2], this.total_nitrogen[selectedMonth][selectedDate][0][2], this.ph[selectedMonth][selectedDate][0][2], this.temperature[selectedMonth][selectedDate][0][2]];
+          displayData = [this.conductivity[selectedMonth][selectedDate][1][2], this.permanganate_index[selectedMonth][selectedDate][1][2], this.dissolved_oxygen[selectedMonth][selectedDate][1][2], this.total_nitrogen[selectedMonth][selectedDate][1][2], this.ph[selectedMonth][selectedDate][1][2], this.temperature[selectedMonth][selectedDate][1][2]];
+          chartDom = this.$refs.fourthMain;
+        } else if (this.activeName3 == 'fourth') {
+          realData = [this.conductivity[selectedMonth][selectedDate][0][3], this.permanganate_index[selectedMonth][selectedDate][0][3], this.dissolved_oxygen[selectedMonth][selectedDate][0][3], this.total_nitrogen[selectedMonth][selectedDate][0][3], this.ph[selectedMonth][selectedDate][0][3], this.temperature[selectedMonth][selectedDate][0][3]];
+          displayData = [this.conductivity[selectedMonth][selectedDate][1][3], this.permanganate_index[selectedMonth][selectedDate][1][3], this.dissolved_oxygen[selectedMonth][selectedDate][1][3], this.total_nitrogen[selectedMonth][selectedDate][1][3], this.ph[selectedMonth][selectedDate][1][3], this.temperature[selectedMonth][selectedDate][1][3]];
+          chartDom = this.$refs.fifthMain;
+        } else if (this.activeName3 == 'fith') {
+          realData = [this.conductivity[selectedMonth][selectedDate][0][4], this.permanganate_index[selectedMonth][selectedDate][0][4], this.dissolved_oxygen[selectedMonth][selectedDate][0][4], this.total_nitrogen[selectedMonth][selectedDate][0][4], this.ph[selectedMonth][selectedDate][0][4], this.temperature[selectedMonth][selectedDate][0][4]];
+          displayData = [this.conductivity[selectedMonth][selectedDate][1][4], this.permanganate_index[selectedMonth][selectedDate][1][4], this.dissolved_oxygen[selectedMonth][selectedDate][1][4], this.total_nitrogen[selectedMonth][selectedDate][1][4], this.ph[selectedMonth][selectedDate][1][4], this.temperature[selectedMonth][selectedDate][1][4]];
+          chartDom = this.$refs.sixthMain;
+        }
+
         var myChart = this.$echarts.init(chartDom);
         var option = {
+          tooltip: {
+            trigger: "axis",
+            axisPointer: {
+              type: "shadow"
+            },
+            formatter: function (params) {
+              return params[0].name + "<br/>" + params[1].axisValue + unit[params[0].dataIndex];
+            }
+          },
           grid: {
-            top: "10%",
-            left: "22%",
-            right: "14%",
-            bottom: "10%"
+            top: "1%",
+            left: "25%",
+            right: "18%",
+            bottom: "15%"
             // containLabel: true
           },
           // 不显示x轴的相关信息
@@ -318,7 +421,7 @@ export default {
             {
               type: "category",
               inverse: true,
-              data: ["电池电压(V)", "盐度(%)", "溶解氧(mg/L)", "浊度(NTU)", "pH", "水温(°C)"],
+              data: ["电导率", "高锰酸盐指数", "溶解氧", "总氮", "pH", "水温"],
               // 不显示y轴的线
               axisLine: {
                 show: false
@@ -330,11 +433,11 @@ export default {
               // 把刻度标签里面的文字颜色设置为白色
               axisLabel: {
                 color: "#fff",
-
+                fontSize: 14,
               }
             },
             {
-              data: [25.90, 34.16, 0.00, 2.05, 8.37, 15],
+              data: realData,
               inverse: true,
               // 不显示y轴的线
               axisLine: {
@@ -346,12 +449,10 @@ export default {
               },
               // 把刻度标签里面的文字颜色设置为白色
               axisLabel: {
-                color: function (value, index) {
-                  // params 传进来的是柱子对象
-                  // dataIndex 是当前柱子的索引号
-                  let myColor = ['#fbaf16', '#73b73e', '#ff0000', '#73b73e', '#73b73e', '#ffffff'];
-                  return myColor[index];
-                },
+                color: "#fff",
+                formatter: function (value, index) {
+                  return parseFloat(value).toFixed(2);
+                }
               }
             }
           ],
@@ -359,7 +460,7 @@ export default {
             {
               name: "条",
               type: "bar",
-              data: [25.90, 34.16, 0.00, 2.05, 8.37, 15],
+              data: displayData,
               yAxisIndex: 0,
               // 修改第一组柱子的圆角
               itemStyle: {
@@ -377,7 +478,7 @@ export default {
                 position: "inside",
                 // {c} 会自动的解析为 数据  data里面的数据
                 formatter: "{c}%"
-              }
+              },
             },
             {
               name: "框",
@@ -385,7 +486,7 @@ export default {
               barCategoryGap: 50,
               barWidth: 15,
               yAxisIndex: 1,
-              data: [37, 37, 37, 37, 37, 37],
+              data: [100, 100, 100, 100, 100, 100],
               itemStyle: {
                 color: "none", // 不要条的颜色
                 borderColor: "#00c1de",
@@ -405,9 +506,40 @@ export default {
     handleClick2(tab, event) {
       // console.log(tab, event);
     },
+    handleClick3(tab, event) {
+      // console.log(tab, event);
+      this.setBarData2();
+    },
+    setHydrodata(response) {
+      // console.log(response.data.April);
+      this.$set(this.records, '4', response.data.records.April);
+      this.$set(this.records, '5', response.data.records.May);
+      this.$set(this.temperature, '4', response.data.April.temperature);
+      this.$set(this.temperature, '5', response.data.May.temperature);
+      this.$set(this.ph, '4', response.data.April.ph);
+      this.$set(this.ph, '5', response.data.May.ph);
+      this.$set(this.dissolved_oxygen, '4', response.data.April.dissolved_oxygen);
+      this.$set(this.dissolved_oxygen, '5', response.data.May.dissolved_oxygen);
+      this.$set(this.conductivity, '4', response.data.April.conductivity);
+      this.$set(this.conductivity, '5', response.data.May.conductivity);
+      this.$set(this.turbidity, '4', response.data.April.turbidity);
+      this.$set(this.turbidity, '5', response.data.May.turbidity);
+      this.$set(this.permanganate_index, '4', response.data.April.permanganate_index);
+      this.$set(this.permanganate_index, '5', response.data.May.permanganate_index);
+      this.$set(this.ammonia_nitrogen, '4', response.data.April.ammonia_nitrogen);
+      this.$set(this.ammonia_nitrogen, '5', response.data.May.ammonia_nitrogen);
+      this.$set(this.total_nitrogen, '4', response.data.April.total_nitrogen);
+      this.$set(this.total_nitrogen, '5', response.data.May.total_nitrogen);
+      this.$set(this.total_phosphorus, '4', response.data.April.total_phosphorus);
+      this.$set(this.total_phosphorus, '5', response.data.May.total_phosphorus);
+      // console.log(this.records.April);
+      // console.log(this.total_nitrogen.April);
+    }
   },
   async created() {
     $(document).ready(async () => {
+      const response = await axios.get(`myApp/main/`);
+      this.setHydrodata(response);
       this.setBarData()
       this.setBarData2()
     })
@@ -425,6 +557,18 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 设置容器的高度为视口的高度，这样组件就会在垂直方向上居中 */
+}
+
+.custom-date-picker {
+  color: #4b83f2; //当前标签页颜色
+  margin-left: 50px; /* 向右移动50px */
+}
+
 #sixthMain {
   display: flex;
   flex-wrap: wrap;

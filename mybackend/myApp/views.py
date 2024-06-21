@@ -7,6 +7,8 @@ from rest_framework import viewsets, mixins, status
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
+from django.http import JsonResponse
+from .utils.getData import getHydroData, getHydroDataList, getFishData, getScore
 
 
 # Create your views here.
@@ -63,3 +65,30 @@ class RegisterViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
             fisherMan.save()
             return Response({'msg': '注册成功'}, status=status.HTTP_200_OK)
         return Response(user_detail.errors)
+    
+def data(request):
+    if request.method == 'GET':
+        April_data, May_data, records = getHydroData()
+        return JsonResponse({
+            'April': April_data,
+            'May': May_data,
+            'records': records
+        })
+    
+def dataCenter(request):
+    if request.method == 'GET':
+        hydro_data = getHydroDataList()
+        species_stats = getFishData()
+        return JsonResponse({
+            'hydro_data': hydro_data,
+            'species_stats': species_stats
+        })
+
+def underwaterSystem(request):
+    if request.method == 'GET':
+        species_stats = getFishData()
+        scores = getScore()
+        return JsonResponse({
+            'species_stats': species_stats,
+            'scores': scores
+        })
