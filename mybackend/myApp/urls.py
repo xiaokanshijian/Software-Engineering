@@ -14,4 +14,5 @@ urlpatterns = [
     path('main/', views.data, name='main'),
     path('dataCenter/', views.dataCenter, name='dataCenter'),
     path('underwaterSystem/', views.underwaterSystem, name='underwaterSystem'),
+    path('users/', views.users, name='users'),
 ]

@@ -6,6 +6,7 @@ import DataCenter from '../views/DataCenter.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import AI from '../views/AI.vue'
+import User from '../views/User.vue'
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,16 @@ const routes = [{
     component: AI,
     meta: { 
         name: "智能中心" , 
+        showHeader: true,
+        showBackground: true,
+    }
+},
+{
+    path: '/user',
+    name: 'User',
+    component: User,
+    meta: { 
+        name: "用户信息" , 
         showHeader: true,
         showBackground: true,
     }

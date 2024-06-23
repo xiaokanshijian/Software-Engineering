@@ -12,6 +12,11 @@ def prepocess_hydrodata():
     # 删除包含缺失值的行
     df = df.dropna()
 
+    columns_to_convert = ['temperature', 'dissolved_oxygen', 'conductivity', 'permanganate_index', 'ammonia_nitrogen', 'total_nitrogen', 'total_phosphorus']
+    
+    # 将以文本形式存储的数字转换为数字形式
+    for column in columns_to_convert:
+        df[column] = pd.to_numeric(df[column], errors='coerce')
     # 将"date"列转换为日期类型
     df['date'] = pd.to_datetime(df['date'], origin='1899-12-30', unit='D')
 

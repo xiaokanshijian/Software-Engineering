@@ -281,11 +281,11 @@ export default {
 								});
 								// console.log(res.data.user)
 								// this.$store.commit("setUser", res.body)
-								console.log(res.data.fiserman)
+								console.log(res.data.fisherman)
 								// console.log(res.data.token)
 								// this.$store.commit("setAuthorization", res.token)
 								this.$store.commit("setUser", res.data.user)
-								this.$store.commit("setFisherman", res.data.user)
+								this.$store.commit("setFisherman", res.data.fisherman)
 								this.$store.commit("setAuthorization", res.data.token)
 								this.$store.commit('setLogin', true);
 								this.$router.push('/')
