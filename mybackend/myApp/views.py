@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.viewsets import ModelViewSet, ViewSet
+from rest_framework.viewsets import ModelViewSet
 from myApp.models import FisherMan
 from myApp.serializers import FisherSerializer, UserDetailSerializer
 from rest_framework.response import Response
@@ -7,12 +7,15 @@ from rest_framework import viewsets, mixins, status
 from django.contrib.auth.hashers import make_password
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
-from django.http import JsonResponse, HttpResponseBadRequest
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 from .utils.getData import getHydroData, getHydroDataList, getFishData, getScore
 from django.views.decorators.http import require_http_methods
 from django.core.exceptions import ObjectDoesNotExist
 import json
-
+import paddlex as pdx
+from django.core.files.storage import FileSystemStorage
+import os
+import cv2
 
 def jwt_response_payload_handler(token, user=None, request=None):
     """
@@ -129,3 +132,57 @@ def users(request):
 
     # 如果请求方法不是PATCH，返回不支持的请求方法
     return HttpResponseBadRequest("不支持的请求方法")
+
+
+from django.http import JsonResponse
+import base64
+
+@csrf_exempt
+def AICenter(request):
+    if request.method == 'POST' and request.FILES.get('image'):
+        # 确保mask和draw文件夹存在
+        image_dir = './tmp/images'
+        mask_dir = './tmp/mask'
+        draw_dir = './tmp/draw'
+        os.makedirs(mask_dir, exist_ok=True)
+        os.makedirs(draw_dir, exist_ok=True)
+        # 保存上传的图片
+        image = request.FILES['image']
+        fs = FileSystemStorage(location=image_dir)
+        filename = fs.save(image.name, image)
+        imgName = fs.path(filename)
+        print(imgName)
+        
+        # 图片处理逻辑
+        file_name = os.path.split(imgName)[1].split('.')[0]
+        model = pdx.deploy.Predictor('./inference_model_seg')
+        label = model.predict(imgName)['label_map']
+        label = label * 255
+        mask_path = os.path.join(mask_dir, f'{file_name}_mask.png')
+        cv2.imwrite(mask_path, label, (cv2.IMWRITE_PNG_COMPRESSION, 0))
+        image = cv2.imread(imgName)
+        mask = cv2.imread(mask_path, 0)
+        contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        cv2.drawContours(image, contours, -1, (0, 255, 0), 2)
+        result_image_path = os.path.join(draw_dir, f'{file_name}_draw.png')
+        cv2.imwrite(result_image_path, image)
+
+        model = pdx.load_model('./inference_model')
+        result = model.predict(imgName)
+        result_category = result[0]["category"]
+        print(result_category)
+        
+        # 将图像转换为Base64编码
+        with open(result_image_path, 'rb') as image_file:
+            encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+        
+        # 将图像数据和result_category封装成JSON对象返回
+        response_data = {
+            'image_data': encoded_string,
+            'result_category': result_category
+        }
+        return JsonResponse(response_data)
+    else:
+        # 如果不是POST请求或没有文件被上传，则渲染默认页面
+        return render(request, 'AICenter.html')
+    

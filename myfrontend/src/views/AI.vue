@@ -5,79 +5,51 @@
         <div class="naca">
           <div class="index-header" style="margin-top: 5px">
             <div>
-              <dv-decoration-10
-                style="width: 450px; height: 1px; margin-bottom: 45px"
-              />
-              <dv-decoration-8
-                style="width: 180px; height: 50px"
-                :color="['#568aea', '#000000']"
-              />
-              <div
-                style="
+              <dv-decoration-10 style="width: 450px; height: 1px; margin-bottom: 45px" />
+              <dv-decoration-8 style="width: 180px; height: 50px" :color="['#568aea', '#000000']" />
+              <div style="
                   width: 150px;
                   color: #eeecec;
                   font-size: 18px;
                   padding: 0 15px;
                   font-weight: bold;
-                "
-              >
+                ">
                 可视化化平台
               </div>
-              <dv-decoration-8
-                :reverse="true"
-                style="width: 180px; height: 50px"
-                :color="['#568aea', '#000000']"
-              />
-              <dv-decoration-10
-                style="
+              <dv-decoration-8 :reverse="true" style="width: 180px; height: 50px" :color="['#568aea', '#000000']" />
+              <dv-decoration-10 style="
                   width: 450px;
                   height: 1px;
                   transform: rotateY(180deg);
                   margin-bottom: 45px;
-                "
-              />
+                " />
             </div>
-            <dv-decoration-5
-              style="width: 10%; height: 20px"
-              :color="['#568aea', '#000000']"
-            />
+            <dv-decoration-5 style="width: 10%; height: 20px" :color="['#568aea', '#000000']" />
           </div>
 
           <div class="index-content">
             <div class="left">
               <div class="col-1" style="">
-                <dv-border-box-12
-                  style="height: 300px; width: 490px ;color=white"
-                >
+                <dv-border-box-12 style="height: 300px; width: 490px ;color=white">
                   <div class="title" style="margin-top: 5px">
                     海洋牧场环境感知得分
                   </div>
-                  <div
-                    style="
+                  <div style="
                       width: 100%;
                       height: 5%;
                       color: white;
                       text-align: center;
-                    "
-                  >
+                    ">
                     <template>
-                      <div
-                        class="block"
-                        style="
+                      <div class="block" style="
                           display: flex;
                           align-items: center;
                           margin-left: 10px;
                           width: 28%;
                           height: 3%;
-                        "
-                      >
-                        <el-date-picker
-                          v-model="date"
-                          type="date"
-                          placeholder="选择日期"
-                          size="small"
-                          :picker-options="pickerOptions"
-                        >
+                        ">
+                        <el-date-picker v-model="date" type="date" placeholder="选择日期" size="small"
+                          :picker-options="pickerOptions">
                         </el-date-picker>
                       </div>
                     </template>
@@ -95,19 +67,13 @@
                       危险: 出现严重问题或危机
                     </div>
                   </div>
-                  <div
-                    ref="environment_count1"
-                    style="width: 100%; height: 105%;color=white"
-                  ></div>
+                  <div ref="environment_count1" style="width: 100%; height: 105%;color=white"></div>
                 </dv-border-box-12>
 
                 <dv-border-box-12 style="height: 250px; width: 490px">
                   <div class="title" style="margin-top: 5px">网衣/鱼群检测</div>
                   <div ref="secondMain" style="width: 70%; height: 100%">
-                    <div
-                      ref="fishChart"
-                      style="width: 150%; height: 105%;color=white"
-                    ></div>
+                    <div ref="fishChart" style="width: 150%; height: 105%;color=white"></div>
                   </div>
                 </dv-border-box-12>
               </div>
@@ -115,133 +81,91 @@
 
             <div class="cent">
               <div class="col-3" style="">
-                <dv-border-box-12 style="height: 330px; width: 540px">
-                  <div class="title" style="margin-top: 5px">图像识别</div>
-                  <div
-                    style="
-                      display: flex;
-                      justify-content: space-between;
-                      width: 100%;
-                    "
-                  >
-                    <div
-                      id="fifthMain"
-                      style="
-                        width: 170%;
-                        height: 270px;
-                        margin-top: 10px;
-                        background: black;
-                      "
-                    >
-                      <div class="title" style="margin-top: 5px">识别效果</div>
-                    </div>
-                    <div
-                      style="
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: space-between;
-                        width: 100%;
-                      "
-                    >
-                      <div style="width: 90%; height: 150px; background: black">
-                        <div class="title" style="margin-top: 5px">
-                          左目镜头
-                        </div>
+                <template>
+                  <dv-border-box-12 style="height: 330px; width: 540px">
+                    <div style="display: flex; justify-content: space-between; width: 100%;">
+                      <!-- 原始图像 -->
+                      <div style="width: 50%; height: 270px; background: black; margin-top: 10px;">
+                        <div class="title" style="margin-top: 5px">原始图像</div>
+                        <img v-if="originalImageUrl" :src="originalImageUrl"
+                          style="width: 100%; height: 100%; object-fit: cover;">
                       </div>
-                      <div style="width: 90%; height: 150px; background: black">
-                        <div class="title" style="margin-top: 5px">
-                          右目镜头
-                        </div>
+                      <!-- 识别效果 -->
+                      <div style="width: 50%; height: 270px; background: black; margin-top: 10px;">
+                        <div class="title" style="margin-top: 5px">识别效果</div>
+                        <img v-if="resultImageUrl" :src="resultImageUrl"
+                          style="width: 100%; height: 100%; object-fit: cover;">
                       </div>
                     </div>
-                  </div>
-                </dv-border-box-12>
+                    <input type="file" @change="uploadImage" style="margin-top: 10px;">
+                    <button @click="recognizeImage" style="margin-top: 10px; height: 10%; width: 20%;">图像识别</button>
+                  </dv-border-box-12>
+                </template>
 
                 <dv-border-box-12 style="height: 220px; width: 540px">
                   <div class="title" style="margin-top: 5px">实时数据</div>
-                  <div
-                    id="sixthMain"
-                    style="
+                  <div id="sixthMain" style="
                       display: grid;
                       grid-template-columns: repeat(3, 1fr);
                       width: 98%;
                       height: 90%;
-                    "
-                  >
-                    <div
-                      class="rounded-box"
-                      style="
+                    ">
+                    <div class="rounded-box" style="
                         display: flex;
                         flex-direction: row;
                         justify-content: flex-start;
                         align-items: center;
-                      "
-                    >
+                      ">
                       编号
                       <camera-icon style="margin-left: auto" />
                       <span id="fishId">Fish 001</span>
                     </div>
-                    <div
-                      class="rounded-box"
-                      style="
+                    <div class="rounded-box" style="
                         display: flex;
                         flex-direction: row;
                         justify-content: flex-start;
                         align-items: center;
-                      "
-                    >
+                      ">
                       鱼种
                       <light-icon style="margin-left: auto" />
-                      <span id="fishSpecies">Goldfish</span>
+                      <span id="fishSpecies">{{ fishSpecies }}</span>
                     </div>
-                    <div
-                      class="rounded-box"
-                      style="
+                    <div class="rounded-box" style="
                         display: flex;
                         flex-direction: row;
                         justify-content: flex-start;
                         align-items: center;
-                      "
-                    >
+                      ">
                       体长
                       <brush-icon style="margin-left: auto" />
                       <span id="fishLength">10 cm</span>
                     </div>
-                    <div
-                      class="rounded-box"
-                      style="
+                    <div class="rounded-box" style="
                         display: flex;
                         flex-direction: row;
                         justify-content: flex-start;
                         align-items: center;
-                      "
-                    >
+                      ">
                       疑似病患
                       <loop-icon style="margin-left: auto" />
                       <span id="suspiciousCases">2</span>
                     </div>
-                    <div
-                      class="rounded-box"
-                      style="
+                    <div class="rounded-box" style="
                         display: flex;
                         flex-direction: row;
                         justify-content: flex-start;
                         align-items: center;
-                      "
-                    >
+                      ">
                       鱼群异常
                       <split-screen-icon style="margin-left: auto" />
                       <span id="abnormalSchools">1</span>
                     </div>
-                    <div
-                      class="rounded-box"
-                      style="
+                    <div class="rounded-box" style="
                         display: flex;
                         flex-direction: row;
                         justify-content: flex-start;
                         align-items: center;
-                      "
-                    >
+                      ">
                       轨迹分析
                       <cloud-file-icon style="margin-left: auto" />
                       <span id="trajectoryAnalysis">Available</span>
@@ -254,61 +178,49 @@
             <div class="right">
               <div class="col-2" style="">
                 <dv-border-box-12 style="height: 300px; width: 410px">
-                  <div
-                    style="
+                  <div style="
                       display: flex;
                       flex-direction: column;
                       justify-content: space-between;
                       width: 100%;
-                    "
-                  >
-                    <div
-                      style="
+                    ">
+                    <div style="
                         width: 90%;
                         height: 190px;
                         border-radius: 10px;
                         margin: 0 auto;
-                      "
-                    >
+                      ">
                       <div class="title" style="margin-top: 5px">AI决策</div>
-                      <div
-                        style="
+                      <div style="
                           display: flex;
                           flex-wrap: wrap;
                           justify-content: space-around;
-                        "
-                      >
-                        <div
-                          style="
+                        ">
+                        <div style="
                             width: 100%;
                             height: 5%;
                             color: white;
                             text-align: center;
                             font-size: 16px;
-                          "
-                        >
+                          ">
                           <div>
                             温度：
                             <span id="temperatureValue">
-                              {{ sensorData.temperature.toFixed(2) }} ℃</span
-                            >
+                              {{ sensorData.temperature.toFixed(2) }} ℃</span>
                           </div>
                           <div>
                             光照：
                             <span id="lightValue">
-                              {{ sensorData.light.toFixed(2) }} lx</span
-                            >
+                              {{ sensorData.light.toFixed(2) }} lx</span>
                           </div>
                           <div>
                             溶解氧：
                             <span id="oxygenValue">
-                              {{ sensorData.oxygen.toFixed(2) }} mg/L</span
-                            >
+                              {{ sensorData.oxygen.toFixed(2) }} mg/L</span>
                           </div>
                           <div>
                             盐度：
-                            <span id="salinityValue"
-                              >{{ sensorData.salinity.toFixed(2) }}ppt
+                            <span id="salinityValue">{{ sensorData.salinity.toFixed(2) }}ppt
                             </span>
                           </div>
                           <div>
@@ -322,15 +234,13 @@
                     </div>
                     <div style="width: 90%; height: 50px">
                       <div class="title" style="margin-top: 5px">提示</div>
-                      <div
-                        style="
+                      <div style="
                           width: 100%;
                           height: 5%;
                           color: white;
                           text-align: center;
                           font-size: 16px;
-                        "
-                      >
+                        ">
                         未来几天可能降雨，请保持温度风度正常
                       </div>
                       <div></div>
@@ -339,87 +249,57 @@
                 </dv-border-box-12>
 
                 <dv-border-box-12 style="height: 250px; width: 410px">
-                  <div
-                    ref="fourthMain"
-                    style="width: 93%; height: 83%; margin-left: 15px"
-                  >
-                    <div
-                      style="
+                  <div ref="fourthMain" style="width: 93%; height: 83%; margin-left: 15px">
+                    <div style="
                         display: flex;
                         justify-content: space-between;
                         width: 100%;
-                      "
-                    >
+                      ">
                       <div style="width: calc(50% - 10px); border-radius: 10px">
                         <div class="title" style="margin-top: 5px">
                           气象数据
                         </div>
-                        <div
-                          id="sixthMain"
-                          style="
+                        <div id="sixthMain" style="
                             display: grid;
                             grid-template-columns: repeat(2, 1fr);
                             grid-template-rows: repeat(2, auto);
                             gap: 20px;
-                          "
-                        >
-                          <div
-                            class="rounded-box"
-                            style="display: flex; align-items: center"
-                          >
+                          ">
+                          <div class="rounded-box" style="display: flex; align-items: center">
                             温度
-                            <temperature-icon
-                              style="margin-left: auto"
-                            ></temperature-icon>
+                            <temperature-icon style="margin-left: auto"></temperature-icon>
                             <span id="temperatureValue">20°C - 30°C</span>
                           </div>
-                          <div
-                            class="rounded-box"
-                            style="display: flex; align-items: center"
-                          >
+                          <div class="rounded-box" style="display: flex; align-items: center">
                             风向
                             <wind-icon style="margin-left: auto"></wind-icon>
                             <span id="windDirection">北风</span>
                           </div>
-                          <div
-                            class="rounded-box"
-                            style="display: flex; align-items: center"
-                          >
+                          <div class="rounded-box" style="display: flex; align-items: center">
                             湿度
-                            <humidity-icon
-                              style="margin-left: auto"
-                            ></humidity-icon>
+                            <humidity-icon style="margin-left: auto"></humidity-icon>
                             <span id="humidityValue">60%</span>
                           </div>
-                          <div
-                            class="rounded-box"
-                            style="display: flex; align-items: center"
-                          >
+                          <div class="rounded-box" style="display: flex; align-items: center">
                             空气污染
-                            <pollution-icon
-                              style="margin-left: auto"
-                            ></pollution-icon>
+                            <pollution-icon style="margin-left: auto"></pollution-icon>
                             <span id="pollutionLevel">中度污染</span>
                           </div>
                         </div>
                       </div>
-                      <div
-                        style="
+                      <div style="
                           width: 40%;
                           height: 5%;
                           color: white;
                           text-align: center;
                           font-size: 16px;
-                        "
-                      >
+                        ">
                         <div class="title" style="margin-top: 5px; color: red">
                           警报
                         </div>
                         <div>
                           海啸警报
-                          <span id="tsunami_alert"
-                            >紧急行动通知！预计于05月12日上午10:30在沿海地区发生6级海啸。立即疏散至高处，确保安全。</span
-                          >
+                          <span id="tsunami_alert">紧急行动通知！预计于05月12日上午10:30在沿海地区发生6级海啸。立即疏散至高处，确保安全。</span>
                           <div id="app">
                             <div>
                               <!-- 手动触发弹窗按钮 -->
@@ -431,12 +311,10 @@
                               <div v-if="isModalVisible" class="modal">
                                 <div class="modal-content">
                                   <p>
-                                    <strong
-                                      :class="{
-                                        'red-title': hasAbnormalData(),
-                                        'black-title': !hasAbnormalData(),
-                                      }"
-                                    >
+                                    <strong :class="{
+                                      'red-title': hasAbnormalData(),
+                                      'black-title': !hasAbnormalData(),
+                                    }">
                                       {{
                                         hasAbnormalData()
                                           ? "警报"
@@ -444,84 +322,63 @@
                                       }}
                                     </strong>
                                   </p>
-                                  <p
-                                    :class="
-                                      getTextClass(
-                                        sensorData.temperature,
-                                        temperatureRange
-                                      )
-                                    "
-                                  >
+                                  <p :class="getTextClass(
+                                    sensorData.temperature,
+                                    temperatureRange
+                                  )
+                                    ">
                                     温度:
                                     {{ sensorData.temperature.toFixed(2) }} ℃
                                     (预设区间: {{ temperatureRange.min }} -
                                     {{ temperatureRange.max }} ℃)
                                   </p>
-                                  <p
-                                    :class="
-                                      getTextClass(sensorData.light, lightRange)
-                                    "
-                                  >
+                                  <p :class="getTextClass(sensorData.light, lightRange)
+                                    ">
                                     光照: {{ sensorData.light.toFixed(2) }} lx
                                     (预设区间: {{ lightRange.min }} -
                                     {{ lightRange.max }} lx)
                                   </p>
-                                  <p
-                                    :class="
-                                      getTextClass(
-                                        sensorData.oxygen,
-                                        oxygenRange
-                                      )
-                                    "
-                                  >
+                                  <p :class="getTextClass(
+                                    sensorData.oxygen,
+                                    oxygenRange
+                                  )
+                                    ">
                                     溶解氧:
                                     {{ sensorData.oxygen.toFixed(2) }} mg/L
                                     (预设区间: {{ oxygenRange.min }} -
                                     {{ oxygenRange.max }} mg/L)
                                   </p>
-                                  <p
-                                    :class="
-                                      getTextClass(
-                                        sensorData.salinity,
-                                        salinityRange
-                                      )
-                                    "
-                                  >
+                                  <p :class="getTextClass(
+                                    sensorData.salinity,
+                                    salinityRange
+                                  )
+                                    ">
                                     盐度:
                                     {{ sensorData.salinity.toFixed(2) }} ppt
                                     (预设区间: {{ salinityRange.min }} -
                                     {{ salinityRange.max }} ppt)
                                   </p>
-                                  <p
-                                    :class="
-                                      getTextClass(sensorData.ph, phRange)
-                                    "
-                                  >
+                                  <p :class="getTextClass(sensorData.ph, phRange)
+                                    ">
                                     pH:
                                     {{ sensorData.ph.toFixed(2) }} (预设区间:
                                     {{ phRange.min }} - {{ phRange.max }})
                                   </p>
-                                  <p
-                                    :class="
-                                      getTextClass(
-                                        sensorData.fishCount,
-                                        fishCountRange
-                                      )
-                                    "
-                                  >
+                                  <p :class="getTextClass(
+                                    sensorData.fishCount,
+                                    fishCountRange
+                                  )
+                                    ">
                                     鱼群数量:
                                     {{ sensorData.fishCount.toFixed(2) }}
                                     (预设区间: {{ fishCountRange.min }} -
                                     {{ fishCountRange.max }})
                                   </p>
-                                  <p
-                                    :class="
-                                      getTextClass(
-                                        sensorData.fishActivity,
-                                        fishActivityRange
-                                      )
-                                    "
-                                  >
+                                  <p :class="getTextClass(
+                                    sensorData.fishActivity,
+                                    fishActivityRange
+                                  )
+                                    ">
                                     鱼群活跃度:
                                     {{ sensorData.fishActivity.toFixed(2) }}
                                     (预设区间: {{ fishActivityRange.min }} -
@@ -612,6 +469,9 @@ export default {
         fishCount: 0.1,
         fishActivity: 0.1,
       },
+      originalImageUrl: null,
+      resultImageUrl: null,
+      fishSpecies: "Goldfish",
     };
   },
   watch: {
@@ -947,6 +807,61 @@ export default {
 
       return normalizedScore;
     },
+    uploadImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.originalImageUrl = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    },
+    // Base64字符串转Blob对象的辅助函数
+    base64ToBlob(base64) {
+      const byteString = atob(base64.split(',')[1]);
+      const mimeString = base64.split(',')[0].split(':')[1].split(';')[0];
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      return new Blob([ab], { type: mimeString });
+    },
+    async recognizeImage() {
+      if (!this.originalImageUrl) {
+        alert("请先上传原始图像");
+        return;
+      }
+      try {
+        const response = await fetch(this.originalImageUrl);
+        const blob = await response.blob();
+        const formData = new FormData();
+        formData.append('image', blob, 'image.png');
+        // 使用axios发送POST请求到后端，并请求返回图像和result_category
+        const axiosResponse = await axios.post(`myApp/AICenter/`, formData, {
+          responseType: 'json', // 修改响应类型为json以接收图像和result_category
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        // 假设后端返回的图像数据是Base64编码的字符串
+        // const base64Image = axiosResponse.data.image_data; // 获取返回的图像Base64编码字符串
+        // 将Base64编码的字符串转换为Blob对象
+        // const resultBlob = this.base64ToBlob(base64Image);
+        const resultCategory = axiosResponse.data.result_category; // 获取返回的分类结果
+        // 创建一个URL对象并更新resultImageUrl以显示识别后的图像
+        const imageData = axiosResponse.data.image_data;
+        // 将Base64编码的图像数据设置为图像源
+        this.resultImageUrl = `data:image/png;base64,${imageData}`;
+        // 可以在此处处理resultCategory，例如更新UI显示分类结果
+        console.log("识别结果分类：", resultCategory);
+        this.fishSpecies = resultCategory;
+      } catch (error) {
+        console.error("识别图像时出错：", error);
+        alert("识别图像时出错");
+      }
+    }
   },
   async created() {
     const response = await axios.get(`myApp/underwaterSystem/`);
@@ -1243,6 +1158,7 @@ export default {
 .list_time::-webkit-scrollbar {
   display: none;
 }
+
 .app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
