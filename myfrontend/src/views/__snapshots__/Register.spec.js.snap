@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Register/> snapshot测试 1`] = `
+"<div class="center">
+  <div class="logon">
+    <div class="overlaylong">
+      <div class="overlaylong-Signin">
+        <el-main>
+          <div id="register-from">
+            <el-form status-icon="" model="[object Object]" rules="[object Object]">
+              <el-form-item label="Username" prop="username" style="margin-bottom: 5px;">
+                <el-input autocomplete="off" style="width: 250px;"></el-input>
+              </el-form-item>
+              <el-form-item label="Name" prop="name" style="margin-bottom: 5px;">
+                <el-input autocomplete="off" style="width: 250px;"></el-input>
+              </el-form-item>
+              <el-form-item label="Phone" prop="phone" style="margin-bottom: 5px;">
+                <el-input autocomplete="off" style="width: 250px;"></el-input>
+              </el-form-item>
+              <div class="text-foot">
+                已有账号？
+                <router-link to="/login" class="register-link">
+                  登录
+                </router-link>
+              </div>
+            </el-form>
+          </div>
+        </el-main>
+      </div>
+      <!---->
+    </div>
+    <div class="overlaytitle">
+      <div class="overlaytitle-Signin">
+        <h2 class="overlaytitleH2">海洋牧场监测可视化系统</h2>
+        <p class="overlaytitleP">Next step is to create an account</p>
+        <div class="buttongohs">Next Step</div>
+      </div>
+      <!---->
+    </div>
+  </div>
+</div>"
+`;

@@ -281,7 +281,7 @@ export default {
 								});
 								// console.log(res.data.user)
 								// this.$store.commit("setUser", res.body)
-								console.log(res.data.fisherman)
+								console.log(res.data.fisherman);
 								// console.log(res.data.token)
 								// this.$store.commit("setAuthorization", res.token)
 								this.$store.commit("setUser", res.data.user)
@@ -304,7 +304,30 @@ export default {
 				//未通过验证
 				this.$message('请拖动滑块进行验证！');
 			}
-		}
+		},
+		// register() {
+		// 	// Perform registration logic here
+		// 	// Create a new user account with the provided credentials
+		// 	// You can use an API call or any other registration mechanism
+			
+		// 	// Example registration logic
+		// 	alert('Registration successful');
+		// 	// Redirect to the login page or perform any other action
+		// },
+		// switchToRegistration() {
+		// 	this.overlaylong = 'overlaylongleft';
+		// 	this.overlaytitle = 'overlaytitleright';
+		// 	setTimeout(() => {
+		// 		this.disfiex = 1;
+		// 	}, 200);
+		// },
+		// switchToLogin() {
+		// 	this.overlaylong = 'overlaylongright';
+		// 	this.overlaytitle = 'overlaytitleleft';
+		// 	setTimeout(() => {
+		// 		this.disfiex = 0;
+		// 	}, 200);
+		// }
 	}
 }
 </script>

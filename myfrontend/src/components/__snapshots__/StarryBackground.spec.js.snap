@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StarryBackground/> snapshot测试 1`] = `
+"<div id="background-container">
+  <vue-particles color="#39AFFD" particleopacity="0.2" particlesnumber="100" shapetype="circle" particlesize="5" linescolor="#8DD1FE" lineswidth="1" linelinked="true" lineopacity="0.4" linesdistance="150" movespeed="3" hovereffect="true" hovermode="grab" clickeffect="true" clickmode="push" class="login-bg"></vue-particles>
+</div>"
+`;

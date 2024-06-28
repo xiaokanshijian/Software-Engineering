@@ -240,12 +240,19 @@ export default {
   },
   mounted() {
     // 百度地图API功能
-    var map = new BMap.Map("map");
-    var point = new BMap.Point(116.404, 39.915);
-    map.centerAndZoom(point, 15);
-    map.enableScrollWheelZoom(true);
-    // 设置地图类型为混合地图
-    map.setMapType(BMAP_HYBRID_MAP);
+    if (typeof BMap !== 'undefined') {
+      // BMap存在，执行相关操作
+      var map = new BMap.Map("map");
+      var point = new BMap.Point(116.404, 39.915);
+      map.centerAndZoom(point, 15);
+      map.enableScrollWheelZoom(true);
+      // 设置地图类型为混合地图
+      map.setMapType(BMAP_HYBRID_MAP);
+      // 其他与BMap相关的代码
+    } else {
+      // BMap不存在，可能是在测试环境中
+      console.log("BMap is not defined.");
+    }
   },
   methods: {
     setBarData() {

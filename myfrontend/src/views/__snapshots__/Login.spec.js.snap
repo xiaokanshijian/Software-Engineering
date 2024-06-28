@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Login/> snapshot测试 1`] = `
+"<div class="center">
+  <div class="logon">
+    <div class="overlaylongright">
+      <div class="overlaylong-Signin">
+        <el-main>
+          <div id="login-from">
+            <el-form status-icon="" model="[object Object]" rules="[object Object]">
+              <el-form-item label="Username" prop="username">
+                <el-input autocomplete="off" style="width: 250px;"></el-input>
+              </el-form-item>
+              <el-form-item label="Password" prop="password">
+                <el-input type="password" autocomplete="off" style="width: 250px;"></el-input>
+              </el-form-item>
+              <slide-verification-stub></slide-verification-stub> <br>
+              <div style="display: flex; justify-content: center;">
+                <el-button class="inputbutton">登录</el-button>
+              </div>
+            </el-form>
+          </div>
+        </el-main>
+      </div>
+    </div>
+    <div class="overlaytitleleft">
+      <div class="overlaytitle-Signin">
+        <h2 class="overlaytitleH2">海洋牧场监测可视化系统</h2>
+        <p class="overlaytitleP">
+          Still don't have an account?
+        </p>
+        <router-link to="/register" class="buttongohs">Sign up</router-link>
+      </div>
+    </div>
+  </div>
+</div>"
+`;

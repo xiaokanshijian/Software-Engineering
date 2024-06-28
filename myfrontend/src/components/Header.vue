@@ -39,7 +39,6 @@ export default {
                 this.interval = setInterval(() => {
                         this.currentDateTime = this.getCurrentDateTime();
                 }, 1000);
-                let token = sessionStorage.getItem('Authorization');
         },
         computed: {
                 isLogin() {
