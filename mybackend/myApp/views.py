@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
-from myApp.models import FisherMan
+from myApp.models import FisherMan, Fish
 from myApp.serializers import FisherSerializer, UserDetailSerializer
 from rest_framework.response import Response
 from rest_framework import viewsets, mixins, status
@@ -8,7 +8,7 @@ from django.contrib.auth.hashers import make_password
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
-from .utils.getData import getHydroData, getHydroDataList, getFishData, getScore
+from .utils.getData import getHydroData, getHydroDataList, getFishData, getScore, get_all_fish_data
 from django.views.decorators.http import require_http_methods
 from django.core.exceptions import ObjectDoesNotExist
 import json
@@ -136,6 +136,7 @@ def users(request):
 
 from django.http import JsonResponse
 import base64
+from datetime import datetime
 
 @csrf_exempt
 def AICenter(request):
@@ -185,4 +186,33 @@ def AICenter(request):
     else:
         # 如果不是POST请求或没有文件被上传，则渲染默认页面
         return render(request, 'AICenter.html')
-    
+
+water_quality_options = {'I': 1, 'II': 2, 'III': 3, 'IV': 4, 'V': 5}
+
+@require_http_methods(["PATCH"])
+@csrf_exempt    
+def uploadFishData(request):
+    if request.method == 'PATCH':
+        # 解析请求体中的JSON数据
+        try:
+            data = json.loads(request.body)
+            species = data.get('species')
+            weight = float(data.get('weight', 0))
+            length = float(data.get('length', 0))
+            height = float(data.get('height', 0))
+            width = float(data.get('width', 0))
+        except (ValueError, KeyError):
+            return HttpResponseBadRequest("无效的请求数据")
+        
+        # 保存鱼类数据
+        try:
+            fish = Fish(species=species, weight=weight, length=length, height=height, width=width)
+            fish.save()
+            return JsonResponse({"message": "上传鱼类数据成功"}, status=200)
+        except ObjectDoesNotExist:
+            return JsonResponse({"error": "上传鱼类数据失败"}, status=404)
+
+def exportFishData(request):
+    if request.method == 'GET':
+        fish_data = get_all_fish_data()
+        return JsonResponse({'fish_data': fish_data}, status=200)

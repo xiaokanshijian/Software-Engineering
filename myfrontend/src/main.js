@@ -18,7 +18,7 @@ Vue.config.productionTip = false
 Vue.prototype.$echarts = echarts
 
 //axios发送http请求的目标地址的基础路径
-Vue.prototype.$axios.defaults.baseURL = 'http://localhost:8000'
+// Vue.prototype.$axios.defaults.baseURL = '/api'
 
 new Vue({
     router,

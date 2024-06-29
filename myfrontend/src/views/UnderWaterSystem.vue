@@ -548,7 +548,7 @@ export default {
     },
   },
   async created() {
-    const response = await axios.get(`myApp/underwaterSystem/`);
+    const response = await axios.get(`/api/myApp/underwaterSystem/`);
     this.species_count = response.data.species_stats.species_count;
     this.average_weight = response.data.species_stats.average_weight;
     this.average_length = response.data.species_stats.average_length;

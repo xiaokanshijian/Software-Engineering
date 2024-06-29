@@ -1,6 +1,6 @@
 <template>
   <div class="pred-container">
-    <div class="form-container">
+    <div class="left">
       <el-form ref="centerForm" status-icon :model="centerForm" :rules="rules" label-width="80px">
         <h1>个人中心</h1>
         <el-form-item label="姓名" prop="name" class="item">
@@ -13,20 +13,37 @@
           <el-input v-model="centerForm.email" style="width: 120%;"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="updateInfo('centerForm')">确认</el-button>
+          <el-button type="primary" @click="updateUserInfo('centerForm')">确认</el-button>
           <!-- <el-button @click="cancel" class="button-spacing">取消</el-button> -->
         </el-form-item>
       </el-form>
     </div>
-    <!-- <div class="left">
-      <div class="title">
-        <img src="../assets/logo.png" style="width:80px;height:80px;" alt="">
-        LOGO
-      </div>
-
-    </div>
     <div class="right">
-      <div class="top">
+      <el-form ref="rightForm" status-icon :model="rightForm" :rules="rules" label-width="100px">
+        <h1>上传鱼类数据</h1>
+        <el-form-item label="品种" prop="species" class="item">
+          <el-input v-model="rightForm.species" style="width: 120%;"></el-input>
+        </el-form-item>
+        <el-form-item label="重量(g)" prop="weight" class="item">
+          <el-input v-model="rightForm.weight" style="width: 120%;"></el-input>
+        </el-form-item>
+        <el-form-item label="长度(cm)" prop="length" class="item">
+          <el-input v-model="rightForm.length" style="width: 120%;"></el-input>
+        </el-form-item>
+        <el-form-item label="高度(cm)" prop="height" class="item">
+          <el-input v-model="rightForm.height" style="width: 120%;"></el-input>
+        </el-form-item>
+        <el-form-item label="宽度(cm)" prop="width" class="item">
+          <el-input v-model="rightForm.width" style="width: 120%;"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <div class="button-container">
+            <el-button type="primary" @click="uploadFishData('rightForm')">上传</el-button>
+            <el-button type="success" @click="exportToExcel">导出Excel</el-button>
+          </div>
+        </el-form-item>
+      </el-form>
+      <!-- <div class="top">
 
         <div class="content">
           <div class="title">
@@ -43,12 +60,15 @@
 
         </div>
 
-      </div>
-    </div> -->
+      </div> -->
+    </div>
   </div>
 </template>
 
 <script>
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+
 export default {
   name: 'Pred',
   data() {
@@ -58,6 +78,13 @@ export default {
         phone: null,
         email: null,
         user: null
+      },
+      rightForm: {
+        species: null,
+        weight: null,
+        length: null,
+        height: null,
+        width: null
       },
       rules: {
         name: [{
@@ -94,14 +121,44 @@ export default {
           trigger: 'blur'
         }
         ],
+        species: [{
+          required: true,
+          message: '请输入品种',
+          trigger: 'blur'
+        }
+        ],
+        weight: [{
+          required: true,
+          message: '请输入重量',
+          trigger: 'blur'
+        }
+        ],
+        length: [{
+          required: true,
+          message: '请输入长度',
+          trigger: 'blur'
+        }
+        ],
+        height: [{
+          required: true,
+          message: '请输入高度',
+          trigger: 'blur'
+        }
+        ],
+        width: [{
+          required: true,
+          message: '请输入宽度',
+          trigger: 'blur'
+        }
+        ]
       }
     }
   },
   methods: {
-    updateInfo(formName) {
+    updateUserInfo(formName) {
       this.$refs[formName].validate((valide) => {
         if (valide) {
-          axios.patch(`/myApp/users/`, this.centerForm).then(res => {
+          axios.patch(`/api/myApp/users/`, this.centerForm).then(res => {
             console.log(res)
             if (res.status == 200) {
               this.$message({
@@ -124,9 +181,44 @@ export default {
         }
       });
     },
-    cancel() {
-      this.centerForm = this.$store.state.fisherman;
-      console.log(this.$store.state.fisherman);
+    uploadFishData(formName) {
+      this.$refs[formName].validate((valide) => {
+        if (valide) {
+          axios.patch(`/api/myApp/uploadFishData/`, this.rightForm).then(res => {
+            console.log(res)
+            if (res.status == 200) {
+              this.$message({
+                message: '上传水质数据成功',
+                type: 'success'
+              });
+              console.log("上传水质数据成功")
+            } else {
+              this.$message({
+                type: '上传水质数据失败',
+                type: 'error'
+              });
+            }
+          }).catch(error => {
+            console.log(error)
+          })
+        } else {
+          //表单验证失败
+        }
+      });
+    },
+    async exportToExcel() {
+      const response = await axios.get('/api/myApp/exportFishData/');
+      if (response.status !== 200) {
+        this.$message.error('导出失败');
+        return;
+      }
+      const fishData = response.data.fish_data;
+      const worksheet = XLSX.utils.json_to_sheet(fishData);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "FishData");
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+      saveAs(blob, 'FishData.xlsx');
     }
   },
   created() {
@@ -137,9 +229,17 @@ export default {
 </script>
 
 <style>
+/* 增加按钮的上下间距并使其从上到下对齐 */
+.button-container {
+  display: flex;
+  flex-direction: column; /* 使按钮从上到下排列 */
+  gap: 20px; /* 增大按钮之间的间距 */
+  align-items: flex-start; /* 从上到下对齐 */
+}
+
 .item .el-form-item__label{
     color: white;
-  }
+}
 
 .button {
   width: 100%;

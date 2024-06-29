@@ -20,5 +20,5 @@ import xadmin
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),
-    path('myApp/', include('myApp.urls')),
+    path('/api/myApp/', include('myApp.urls')),
 ]

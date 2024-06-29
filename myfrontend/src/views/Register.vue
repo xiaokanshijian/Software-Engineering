@@ -402,7 +402,7 @@ export default {
                 const msg = this
                 this.$refs[formName].validate((valide) => {
                     if (valide) {
-                        axios.post(`myApp/register/`, this.registerForm).then(res => {
+                        axios.post(`/api/myApp/register/`, this.registerForm).then(res => {
                             console.log(res); //处理成功的函数 相当于success
                             if (res.status == 200) {
                                 this.$message({

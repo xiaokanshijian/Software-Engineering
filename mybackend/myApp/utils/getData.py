@@ -99,7 +99,7 @@ def getScore():
             for attribute in month_data[day]:
                 month_data[day][attribute] /= records[month][day]
 
-    print(April_data)
+    # print(April_data)
     scores = {'April': {}, 'May': {}}
     for month_data in [April_data, May_data]:
         month = 'April' if month_data == April_data else 'May'
@@ -130,3 +130,13 @@ def getScore():
                     + 4 * (2 - month_data[day]['ammonia_nitrogen']) + 4 * (2 - month_data[day]['total_nitrogen']) + 4 * (0.4 - month_data[day]['total_phosphorus'])            
                 
     return scores
+
+def get_all_fish_data():
+    fish_data = list(getAllFishData())
+    res, columns = [], ['species', 'weight', 'length', 'width', 'height']
+    for data in fish_data:
+        tmp = {}
+        for column in columns:
+            tmp[column] = getattr(data, column.lower())
+        res.append(tmp)
+    return res

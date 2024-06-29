@@ -839,7 +839,7 @@ export default {
         const formData = new FormData();
         formData.append('image', blob, 'image.png');
         // 使用axios发送POST请求到后端，并请求返回图像和result_category
-        const axiosResponse = await axios.post(`myApp/AICenter/`, formData, {
+        const axiosResponse = await axios.post(`/api/myApp/AICenter/`, formData, {
           responseType: 'json', // 修改响应类型为json以接收图像和result_category
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -864,7 +864,7 @@ export default {
     }
   },
   async created() {
-    const response = await axios.get(`myApp/underwaterSystem/`);
+    const response = await axios.get(`/api/myApp/underwaterSystem/`);
     this.$set(this.scores, "4", response.data.scores.April);
     this.$set(this.scores, "5", response.data.scores.May);
     $(document).ready(async () => {

@@ -16,4 +16,6 @@ urlpatterns = [
     path('underwaterSystem/', views.underwaterSystem, name='underwaterSystem'),
     path('users/', views.users, name='users'),
     path('AICenter/', views.AICenter, name='AICenter'),
+    path('uploadFishData/', views.uploadFishData, name='uploadFishData'),
+    path('exportFishData/', views.exportFishData, name='exportFishData'),
 ]

@@ -538,7 +538,7 @@ export default {
   },
   async created() {
     $(document).ready(async () => {
-      const response = await axios.get(`myApp/main/`);
+      const response = await axios.get(`/api/myApp/main/`);
       this.setHydrodata(response);
       this.setBarData()
       this.setBarData2()
