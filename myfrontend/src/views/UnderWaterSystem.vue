@@ -112,6 +112,10 @@
                   </div>
                 </div>
               </dv-border-box-12>
+               <dv-border-box-12 style="height: 250px; width: 540px">
+                <div class="title" style="margin-top: 5px">鱼群属性分布曲线</div>
+                <div ref="attrMain" style="width: 100%; height: 90%"></div>
+              </dv-border-box-12>
             </div>
 
 
